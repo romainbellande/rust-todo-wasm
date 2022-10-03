@@ -1,16 +1,29 @@
 mod command;
 mod config;
 mod graphql;
-mod models;
+mod modules;
 
-use axum::{Router, Server};
-
+use async_graphql::{EmptySubscription, Schema};
+use axum::{routing::get, Extension, Router, Server};
+use config::CONFIG;
+use graphql::{graphiql, graphql_handler, MutationRoot, QueryRoot};
 use std::net::SocketAddr;
 
 pub async fn start() {
-    let app = Router::new();
+    let schema = Schema::build(
+        QueryRoot::default(),
+        MutationRoot::default(),
+        EmptySubscription,
+    )
+    .finish();
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let app = Router::new()
+        .route("/", get(graphiql).post(graphql_handler))
+        .layer(Extension(schema));
+
+    let addr = SocketAddr::from(([127, 0, 0, 1], CONFIG.port));
+
+    println!("GraphiQL IDE: http://127.0.0.1:{}", CONFIG.port);
 
     Server::bind(&addr)
         .serve(app.into_make_service())

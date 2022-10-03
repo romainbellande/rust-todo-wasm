@@ -1,17 +1,18 @@
 version: '3'
 
 tasks:
+  run:dev:
+    desc: run server in development mode
+    cmds:
+      - cargo-watch -x run
+
   build:
-    desc: build the server to wasm
+    desc: build the server
     cmds:
       - cargo build
 
   build:release:
-    desc: build the server to wasm in release mode
+    desc: build the server in release mode
     cmds:
       - cargo build --release
 
-  run:release:
-    desc: run server release thanks to wasmer
-    cmds:
-      - wasmer ../..
