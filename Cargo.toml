@@ -1,0 +1,8 @@
+[workspace]
+
+members = [
+  "packages/server",
+  "packages/client",
+]
+
+default-members = ["packages/server"]

@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+  build:
+    desc: build the client to wasm
+    cmds:
+      - trunk clean
+      - trunk build
+
+  build:release:
+    desc: build the client to wasm in release mode
+    cmds:
+      - trunk clean
+      - trunk build --release
+
+  run:dev:
+    desc: run client in dev mode
+    cmds:
+      - trunk serve --open

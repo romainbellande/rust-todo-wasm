@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  build:
+    desc: build the server to wasm
+    cmds:
+      - cargo build
+
+  build:release:
+    desc: build the server to wasm in release mode
+    cmds:
+      - cargo build --release
+
+  run:release:
+    desc: run server release thanks to wasmer
+    cmds:
+      - wasmer ../..
