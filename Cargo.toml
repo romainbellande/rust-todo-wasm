@@ -2,6 +2,8 @@
 
 members = [
   "packages/server",
+  "packages/entity",
+  "packages/migration",
   "packages/client",
 ]
 

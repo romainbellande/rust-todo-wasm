@@ -4,7 +4,28 @@ tasks:
   run:dev:
     desc: run server in development mode
     cmds:
+      - task: db:run
       - cargo-watch -x run
+
+  db:run:
+    desc: run postgresql db server
+    cmds:
+      - cd ../../ && docker-compose up -d
+
+  db:stop:
+    desc: stop postgresql db server
+    cmds:
+      - cd ../../ && docker-compose down
+
+  db:migration:create:
+    desc: create a new migration file
+    cmds:
+      - edgedb migration create
+
+  db:migration:migrate:
+    desc: execute migrations
+    cmds:
+      - edgedb migration apply
 
   build:
     desc: build the server

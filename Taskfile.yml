@@ -22,7 +22,6 @@ tasks:
       - cargo install trunk
       - cargo install cargo-watch
       - cargo install sea-orm-cli
-      - curl https://sh.edgedb.com --proto '=https' -sSf1 | sh
 
   check:
     desc: check applications

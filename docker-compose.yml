@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+
+  pg:
+    image: "postgres:14.4-alpine3.16"
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: rust_todo_wasm
+    ports:
+      - 5449:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+volumes:
+  pg-data:

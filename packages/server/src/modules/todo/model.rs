@@ -1,8 +1,9 @@
 use async_graphql::{Context, Object, ID};
+use uuid::Uuid;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Todo {
-    id: ID,
+    id: Uuid,
     title: String,
     description: String,
 }
@@ -10,7 +11,7 @@ pub struct Todo {
 #[Object]
 impl Todo {
     async fn id(&self) -> ID {
-        self.id.clone()
+        self.id.into()
     }
 }
 

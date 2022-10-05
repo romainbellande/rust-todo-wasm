@@ -1,3 +1,4 @@
+pub mod fixture;
 pub mod model;
 mod mutation;
 mod query;
