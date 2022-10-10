@@ -47,3 +47,8 @@ tasks:
     desc: format
     cmds:
       - cargo +nightly fmt --all
+
+  graphql:gen:
+    desc: generate graphql server thanks to seaography
+    cmds:
+      - seaography-cli $DATABASE_URL ./packages/seaography-example

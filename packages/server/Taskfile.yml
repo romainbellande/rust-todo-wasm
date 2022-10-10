@@ -36,4 +36,3 @@ tasks:
     desc: build the server in release mode
     cmds:
       - cargo build --release
-
