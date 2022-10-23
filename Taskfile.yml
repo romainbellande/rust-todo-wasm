@@ -22,6 +22,13 @@ tasks:
       - cargo install trunk
       - cargo install cargo-watch
       - cargo install sea-orm-cli
+      - npm i -g tailwindcss
+
+  run:dev:
+    desc: run project in development environment
+    deps:
+      - task: server:run:dev
+      - task: client:run:dev
 
   check:
     desc: check applications
@@ -52,3 +59,9 @@ tasks:
     desc: generate graphql server thanks to seaography
     cmds:
       - seaography-cli $DATABASE_URL ./packages/seaography-example
+
+  fix:all:
+    desc: fill format and lint issues when it is possible
+    cmds:
+      - task: format
+      - task: lint:fix

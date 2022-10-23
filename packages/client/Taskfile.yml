@@ -15,5 +15,25 @@ tasks:
 
   run:dev:
     desc: run client in dev mode
+    deps:
+      - task: serve
+      - task: gen:css:watch
+
+  serve:
     cmds:
       - trunk serve --open
+
+  gen:css:
+    env:
+      NODE_ENV: production
+    sources:
+      - ./src/**/*.rs
+      - ./index.html
+      - ./src/**/*.html
+      - ./src/**/*.css
+    cmds:
+      - tailwindcss -c ./tailwind.config.js -o ./src/css/tailwind.css --minify
+
+  gen:css:watch:
+    cmds:
+      - task --watch "gen:css"

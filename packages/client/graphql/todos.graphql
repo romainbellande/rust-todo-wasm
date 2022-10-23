@@ -1,0 +1,11 @@
+query TodosQuery {
+  todos(limit: 123) {
+    data {
+      title
+    },
+		numItems,
+    numPages,
+    page,
+    pageItems
+  }
+}

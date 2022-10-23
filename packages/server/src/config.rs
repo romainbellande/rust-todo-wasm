@@ -7,6 +7,7 @@ pub struct Config {
     pub log_level: String,
     pub port: u16,
     pub database_url: String,
+    pub client_dir: String,
 }
 
 impl Config {
@@ -20,6 +21,7 @@ impl Config {
                 .parse::<u16>()
                 .expect("PORT is not valid"),
             database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
+            client_dir: env::var("CLIENT_DIR").unwrap_or_else(|_| "../client/dist".to_string()),
         }
     }
 }
