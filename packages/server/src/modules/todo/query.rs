@@ -1,4 +1,4 @@
-use crate::utils::{pagination::PaginatedResult, WebError};
+use crate::utils::{pagination::PaginatedResult, WebError, Filter};
 
 use async_graphql::{Context, Object, Result};
 use entity::todo;
@@ -17,6 +17,7 @@ impl TodoQuery {
         ctx: &Context<'_>,
         page: Option<usize>,
         limit: Option<usize>,
+        filters: Option<Vec<Filter>>,
     ) -> Result<PaginatedResult<todo::Model>> {
         let conn = ctx.data::<DatabaseConnection>().unwrap();
         println!("{:?}", todo::Model::FIELDS);
