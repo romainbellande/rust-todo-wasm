@@ -1,12 +1,14 @@
 use async_graphql::*;
 use fake::faker::lorem::en::{Sentence, Word};
 use fake::Fake;
+use field_names::FieldNames;
 use sea_orm::{entity::prelude::*, Set};
 use serde::{Deserialize, Serialize};
 use validator::Validate;
-use field_names::FieldNames;
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, SimpleObject, FieldNames)]
+#[derive(
+    Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, SimpleObject, FieldNames,
+)]
 #[sea_orm(table_name = "todo")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false, column_type = "Uuid")]

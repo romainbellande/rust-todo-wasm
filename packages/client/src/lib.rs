@@ -1,8 +1,8 @@
 #[macro_use]
 extern crate log;
 
-mod graphql;
 mod components;
+mod graphql;
 
 use components::App;
 

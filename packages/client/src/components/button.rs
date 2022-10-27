@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew::{Children, Properties, events::MouseEvent};
+use yew::{events::MouseEvent, Children, Properties};
 
 #[derive(PartialEq)]
 pub enum ButtonType {

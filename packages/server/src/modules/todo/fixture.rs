@@ -14,7 +14,7 @@ pub async fn exec(conn: &DatabaseConnection) -> Result<(), DbErr> {
             );
         }
         Err(err) => {
-            println!("[{}] {}", name, err);
+            println!("[{name}] {err}");
         }
     };
 
@@ -22,7 +22,7 @@ pub async fn exec(conn: &DatabaseConnection) -> Result<(), DbErr> {
 
     todo::Entity::insert_many(models.clone()).exec(conn).await?;
 
-    println!("[{}] fixture loaded with {} items", name, models.len());
+    println!("[{name}] fixture loaded with {} items", models.len());
 
     Ok(())
 }

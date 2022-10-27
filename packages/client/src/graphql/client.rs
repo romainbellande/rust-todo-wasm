@@ -5,7 +5,7 @@ use std::error::Error;
 #[derive(GraphQLQuery)]
 #[graphql(
     schema_path = "graphql/schema.json",
-    query_path = "graphql/todos.graphql",
+    query_path = "graphql/todos.graphql"
 )]
 pub struct TodosQuery;
 
@@ -15,11 +15,15 @@ impl TodosQuery {
 
         let client = reqwest::Client::new();
 
-        let res = client.post("http://127.0.0.1:3000/graphql").json(&body).send().await?;
+        let res = client
+            .post("http://127.0.0.1:3000/graphql")
+            .json(&body)
+            .send()
+            .await?;
 
         log::debug!("send");
 
-        let response_body: Response<todos_query::ResponseData> = res.json().await?;
+        let _response_body: Response<todos_query::ResponseData> = res.json().await?;
 
         Ok(())
     }

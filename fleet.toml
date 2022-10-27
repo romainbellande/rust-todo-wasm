@@ -1,5 +1,0 @@
-rd_enabled = true
-fleet_id = "0aabe538-70fa-4390-b740-56ac85e3be2b"
-
-[build]
-sccache = "/home/naimor/.cargo/bin/sccache"

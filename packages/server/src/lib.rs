@@ -4,24 +4,24 @@ mod db;
 mod fixtures;
 mod graphql;
 mod modules;
-mod utils;
 mod serve_client;
+mod utils;
 
 use async_graphql::{EmptySubscription, Schema};
 use axum::{routing::get, Extension, Router, Server};
 use config::CONFIG;
 use db::Database;
 use graphql::{graphiql, graphql_handler, MutationRoot, QueryRoot};
-use migration::{Migrator, MigratorTrait};
-use std::net::SocketAddr;
-use serve_client::serve_client;
-use tower_http::cors::{CorsLayer, Any};
 use http::Method;
+use migration::{Migrator, MigratorTrait};
+use serve_client::serve_client;
+use std::net::SocketAddr;
+use tower_http::cors::{Any, CorsLayer};
 
 pub async fn start() {
     let conn = Database::new().get_connection().await;
 
-    let cors = CorsLayer::new()
+    let _cors = CorsLayer::new()
         // allow `GET` and `POST` when accessing the resource
         .allow_methods(vec![Method::GET, Method::POST])
         // allow requests from any origin
@@ -34,7 +34,7 @@ pub async fn start() {
     fixtures::exec(&conn)
         .await
         .map_err(|err| {
-            panic!("an error occured while executing fixtures: {:?}", err);
+            panic!("an error occured while executing fixtures: {err:?}");
         })
         .unwrap();
 
@@ -47,7 +47,7 @@ pub async fn start() {
     .finish();
 
     let app = Router::new()
-    .route("/graphql", get(graphiql).post(graphql_handler))
+        .route("/graphql", get(graphiql).post(graphql_handler))
         .layer(Extension(schema))
         .layer(CorsLayer::permissive())
         .fallback(serve_client(CONFIG.client_dir.clone()));

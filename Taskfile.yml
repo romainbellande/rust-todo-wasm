@@ -18,10 +18,11 @@ tasks:
   init:
     desc: init the project
     cmds:
-      - rustup target add wasm32-unknown-unknown
+      - cargo install sscache
       - cargo install trunk
       - cargo install cargo-watch
       - cargo install sea-orm-cli
+      - rustup target add wasm32-unknown-unknown
       - npm i -g tailwindcss
 
   run:dev:
