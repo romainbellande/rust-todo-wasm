@@ -5,7 +5,8 @@ members = [
   "packages/entity",
   "packages/migration",
   "packages/client",
-  "packages/field-names"
+  "packages/field-names",
+  "packages/validator"
 ]
 
 default-members = ["packages/server"]

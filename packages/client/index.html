@@ -5,7 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link data-trunk rel="copy-dir" href="public"/>
         <link data-trunk href="src/css/tailwind.css" rel="css" />
+        <script src="https://cdn.tailwindcss.com"></script>
         <base data-trunk-public-url/>
     </head>
-    <body></body>
+    <body>
+        <link data-trunk rel="rust" href="Cargo.toml" data-type="main" data-wasm-opt="z" data-bin="main" />
+    </body>
 </html>

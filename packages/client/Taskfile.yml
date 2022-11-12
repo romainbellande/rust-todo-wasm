@@ -17,7 +17,6 @@ tasks:
     desc: run client in dev mode
     deps:
       - task: serve
-      - task: gen:css:watch
 
   serve:
     cmds:
@@ -32,7 +31,7 @@ tasks:
       - ./src/**/*.html
       - ./src/**/*.css
     cmds:
-      - tailwindcss -c ./tailwind.config.js -o ./src/css/tailwind.css --minify
+      - tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify --watch
 
   gen:css:watch:
     cmds:

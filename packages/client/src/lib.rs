@@ -3,6 +3,9 @@ extern crate log;
 
 mod components;
 mod graphql;
+mod pages;
+mod router;
+mod utils;
 
 use components::App;
 
