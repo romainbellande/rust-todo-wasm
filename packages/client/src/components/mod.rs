@@ -15,3 +15,6 @@ pub use side_nav_item::SideNavItem;
 
 mod breadcrumb;
 pub use breadcrumb::Breadcrumb;
+
+mod page;
+pub use page::{Page, PageProps};

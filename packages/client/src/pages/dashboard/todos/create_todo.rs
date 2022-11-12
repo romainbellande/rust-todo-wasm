@@ -1,4 +1,4 @@
-use crate::components::Breadcrumb;
+use crate::components::Page;
 use validator::Validator;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
@@ -116,9 +116,7 @@ pub fn create_todo() -> Html {
     };
 
     html! {
-        <div>
-            <Breadcrumb items={vec!["todo", "create"]} />
-            <h1>{ "create todo page" }</h1>
+        <Page breadcrumb={vec!["todo", "create"]}>
             <form {onsubmit}>
                 <div class={classes!("flex", "flex-col", "space-y-4")}>
                     <input
@@ -138,8 +136,8 @@ pub fn create_todo() -> Html {
                     />
                 </div>
 
-                <button type={"submit"}>{"submit"}</button>
+                <button type="submit" disabled={!form_state.is_valid()}>{"submit"}</button>
             </form>
-        </div>
+        </Page>
     }
 }

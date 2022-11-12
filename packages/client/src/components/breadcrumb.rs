@@ -20,7 +20,7 @@ pub fn breadcrumb(props: &Props) -> Html {
                                 }
                                 <li>
                                     <div class="flex items-center">
-                                        <a href="#" class="text-xl font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">{item}</a>
+                                        <a href="#" class="capitalize-first text-xl font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">{item}</a>
                                     </div>
                                 </li>
                             </>
