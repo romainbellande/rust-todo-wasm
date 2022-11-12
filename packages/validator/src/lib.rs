@@ -8,7 +8,7 @@ impl Validator {
 
 pub struct StringValidator {
     value: String,
-    valid: bool
+    valid: bool,
 }
 
 impl StringValidator {
@@ -22,7 +22,7 @@ impl StringValidator {
     }
 
     pub fn required(mut self) -> Self {
-        self.valid = self.value.len() > 0;
+        self.valid = !self.value.is_empty();
         self
     }
 
@@ -37,15 +37,10 @@ mod tests {
 
     #[test]
     fn string_min_length() {
-        let values = vec![
-            ("foobar", true),
-            ("foo", false)
-        ];
+        let values = vec![("foobar", true), ("foo", false)];
 
         for (value, expected) in values {
-            let result = Validator::string(value.to_string())
-                .min_length(6)
-                .valid();
+            let result = Validator::string(value.to_string()).min_length(6).valid();
 
             assert_eq!(result, expected);
         }
@@ -53,15 +48,10 @@ mod tests {
 
     #[test]
     fn string_required() {
-        let values = vec![
-            ("", false),
-            ("foo", true),
-        ];
+        let values = vec![("", false), ("foo", true)];
 
         for (value, expected) in values {
-            let result = Validator::string(value.to_string())
-                .required()
-                .valid();
+            let result = Validator::string(value.to_string()).required().valid();
 
             assert_eq!(result, expected);
         }

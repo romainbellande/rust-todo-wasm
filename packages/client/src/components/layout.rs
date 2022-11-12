@@ -1,7 +1,6 @@
-use yew::prelude::*;
 use super::SideNav;
+use yew::prelude::*;
 use yew::Children;
-
 
 #[derive(Properties, PartialEq)]
 pub struct LayoutProps {

@@ -1,8 +1,8 @@
-use yew::{function_component, html, Children, prelude::*};
+use yew::{function_component, html, prelude::*, Children};
 use yew_router::{components::Link, Routable};
 
 #[derive(Properties, PartialEq)]
-pub struct Props<R: Routable>{
+pub struct Props<R: Routable> {
     #[prop_or_default]
     pub children: Children,
 

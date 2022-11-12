@@ -22,3 +22,4 @@ gloo-worker = "0.2.1"
 gloo = "0.8.0"
 console_error_panic_hook = "0.1.7"
 validator = { path = "../validator" }
+yew_icons = { version = "0.6.1", features = ["heroicons_solid", "heroicons_outline"] }

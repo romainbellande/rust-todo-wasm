@@ -1,8 +1,7 @@
-use yew::prelude::*;
-use yew_router::Routable;
 use super::SideNavItem;
 use crate::pages::dashboard::router::Route;
-
+use yew::prelude::*;
+use yew_router::Routable;
 
 #[function_component[SideNav]]
 pub fn side_nav() -> Html {

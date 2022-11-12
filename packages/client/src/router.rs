@@ -1,16 +1,16 @@
+use crate::pages::dashboard::Dashboard;
 use yew::prelude::*;
 use yew_router::prelude::*;
-use crate::pages::dashboard::Dashboard;
 
 #[derive(Clone, Routable, PartialEq)]
 enum Route {
     #[at("/")]
-    Dashboard
+    Dashboard,
 }
 
 fn switch(route: &Route) -> Html {
     match route {
-        Route::Dashboard => html! { <Dashboard /> }
+        Route::Dashboard => html! { <Dashboard /> },
     }
 }
 
@@ -22,4 +22,3 @@ pub fn router() -> Html {
         </BrowserRouter>
     }
 }
-

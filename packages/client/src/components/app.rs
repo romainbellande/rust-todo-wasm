@@ -3,7 +3,7 @@ use crate::router::Router;
 
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
-use yew::{use_effect, use_state, Callback};
+use yew::use_effect;
 
 #[function_component(App)]
 pub fn app() -> Html {
