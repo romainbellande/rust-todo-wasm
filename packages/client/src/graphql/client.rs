@@ -1,31 +1,20 @@
+use super::request;
+use crate::Error;
 use graphql_client::{GraphQLQuery, Response};
-use reqwest;
-use std::error::Error;
+use std::fmt::Debug;
 
-#[derive(GraphQLQuery)]
+#[derive(GraphQLQuery, Clone, Debug)]
 #[graphql(
     schema_path = "graphql/schema.json",
-    query_path = "graphql/todos.graphql"
+    query_path = "graphql/todos.graphql",
+    response_derives = "Debug,Clone",
+    variables_derives = "Debug,Clone"
 )]
 pub struct TodosQuery;
 
 impl TodosQuery {
-    pub async fn send(variables: todos_query::Variables) -> Result<(), Box<dyn Error>> {
-        let body = Self::build_query(variables);
-
-        let client = reqwest::Client::new();
-
-        let res = client
-            .post("http://127.0.0.1:3000/graphql")
-            .json(&body)
-            .send()
-            .await?;
-
-        log::debug!("send");
-
-        let _response_body: Response<todos_query::ResponseData> = res.json().await?;
-
-        Ok(())
+    pub async fn send(variables: TodosQueryPayload) -> Result<todos_query::ResponseData, Error> {
+        request::<Self>(variables).await
     }
 }
 

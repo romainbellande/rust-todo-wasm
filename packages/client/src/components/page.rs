@@ -1,11 +1,11 @@
-use yew::prelude::*;
 use super::Breadcrumb;
+use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct PageProps {
     #[prop_or_default]
     pub children: Children,
-    pub breadcrumb: Vec<&'static str>
+    pub breadcrumb: Vec<&'static str>,
 }
 
 #[function_component(Page)]

@@ -1,7 +1,9 @@
-use crate::components::{Page, Button, ButtonType, FieldDef, Field};
-use validator::{Validator, TypeValidator, StringValidator};
+use crate::components::{Button, ButtonType, Field, FieldDef, Page};
+use crate::graphql::client::{TodosQuery, TodosQueryPayload};
+use validator::{StringValidator, TypeValidator, Validator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
+use yew_hooks::prelude::use_async;
 
 #[derive(Clone, Debug)]
 pub struct CreateTodoDto {
@@ -20,7 +22,9 @@ impl FormState {
     pub fn new() -> Self {
         Self {
             title: FieldDef::new(|value| Validator::string(value).required("title is required")),
-            description: FieldDef::new(|value| Validator::string(value).required("description is required")),
+            description: FieldDef::new(|value| {
+                Validator::string(value).required("description is required")
+            }),
         }
     }
 
@@ -38,8 +42,8 @@ impl Into<CreateTodoDto> for FormState {
     }
 }
 
-#[function_component(CreateTodo)]
-pub fn create_todo() -> Html {
+#[function_component(Create)]
+pub fn create() -> Html {
     let form_state = use_state(|| FormState::new());
 
     let onsubmit = {
@@ -49,6 +53,8 @@ pub fn create_todo() -> Html {
             e.prevent_default();
             let dto: CreateTodoDto = (*form_state).clone().into();
             log::debug!("dto: {:?}", dto);
+
+            use_async(async move { TodosQuery::send(TodosQueryPayload { limit: Some(20) }).await });
         })
     };
 

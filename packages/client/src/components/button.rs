@@ -40,8 +40,9 @@ pub struct ButtonProps {
 #[function_component(Button)]
 pub fn button(props: &ButtonProps) -> Html {
     let button_class = String::from("cursor-pointer inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-2 font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500");
-    
-    let button_disabled_class = String::from("cursor-not-allowed bg-indigo-300 hover:text-indigo-300 border-indigo-300");
+
+    let button_disabled_class =
+        String::from("cursor-not-allowed bg-indigo-300 hover:text-indigo-300 border-indigo-300");
 
     html! {
         <button

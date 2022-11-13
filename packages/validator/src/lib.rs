@@ -21,7 +21,11 @@ pub struct StringValidator {
 
 impl StringValidator {
     pub fn new(value: String) -> Self {
-        Self { value, validate: true, error_message: String::new() }
+        Self {
+            value,
+            validate: true,
+            error_message: String::new(),
+        }
     }
 
     pub fn min_length(mut self, len: usize, error_message: &'static str) -> Self {
@@ -54,15 +58,15 @@ impl TypeValidator for StringValidator {
 
 #[cfg(test)]
 mod tests {
-    use crate::Validator;
     use crate::TypeValidator;
+    use crate::Validator;
 
     #[test]
     fn string_min_length() {
         let values = vec![("foobar", true), ("foo", false)];
 
         for (value, expected) in values {
-            let error_message: &'static str = "foobar must be at least 6 chars long"; 
+            let error_message: &'static str = "foobar must be at least 6 chars long";
             let validator = Validator::string(value.to_string()).min_length(6, error_message);
 
             assert_eq!(validator.validate(), expected);
@@ -78,7 +82,7 @@ mod tests {
         let values = vec![("", false), ("foo", true)];
 
         for (value, expected) in values {
-            let error_message: &'static str = "foo is required"; 
+            let error_message: &'static str = "foo is required";
             let validator = Validator::string(value.to_string()).required(error_message);
 
             assert_eq!(validator.validate(), expected);

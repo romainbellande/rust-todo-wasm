@@ -1,5 +1,5 @@
-query TodosQuery {
-  todos(limit: 123) {
+query TodosQuery($limit: Int) {
+  todos(limit: $limit) {
     data {
       title
     },

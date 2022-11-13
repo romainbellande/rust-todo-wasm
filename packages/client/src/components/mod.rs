@@ -20,4 +20,4 @@ mod page;
 pub use page::{Page, PageProps};
 
 mod field;
-pub use field::{FieldDef, Field};
+pub use field::{Field, FieldDef};
