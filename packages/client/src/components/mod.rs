@@ -2,7 +2,7 @@ mod app;
 pub use app::App;
 
 mod button;
-pub use button::Button;
+pub use button::{Button, ButtonType};
 
 mod side_nav;
 pub use side_nav::SideNav;

@@ -1,5 +1,5 @@
-use crate::components::Page;
-use validator::Validator;
+use crate::components::{Page, Button, ButtonType};
+use validator::{Validator, TypeValidator, StringValidator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 
@@ -11,14 +11,14 @@ pub struct CreateTodoDto {
 }
 
 #[derive(Clone)]
-struct Field {
+struct Field<T: TypeValidator> {
     value: String,
-    touched: bool,
-    validate_fn: fn(String) -> bool,
+    pub touched: bool,
+    validate_fn: fn(String) -> T,
 }
 
-impl Field {
-    pub fn new(validate_fn: fn(String) -> bool) -> Self {
+impl<T: TypeValidator> Field<T> {
+    pub fn new(validate_fn: fn(String) -> T) -> Self {
         Self {
             value: String::new(),
             touched: false,
@@ -29,6 +29,14 @@ impl Field {
     pub fn set_value(mut self, value: String) {
         self.value = value;
         self.touched = true;
+    }
+
+    pub fn get_error_message(&self) -> String {
+        if self.is_valid() {
+            String::new()
+        } else {
+            self.get_validator().get_error_message()
+        }
     }
 
     pub fn class(&self) -> String {
@@ -43,22 +51,26 @@ impl Field {
         class.to_string()
     }
 
-    pub fn is_valid(&self) -> bool {
+    fn get_validator(&self) -> T {
         (self.validate_fn)(self.value.clone())
+    }
+
+    pub fn is_valid(&self) -> bool {
+        self.get_validator().validate()
     }
 }
 
 #[derive(Clone)]
 struct FormState {
-    title: Field,
-    description: Field,
+    title: Field<StringValidator>,
+    description: Field<StringValidator>,
 }
 
 impl FormState {
     pub fn new() -> Self {
         Self {
-            title: Field::new(|value| Validator::string(value).required().valid()),
-            description: Field::new(|value| Validator::string(value).required().valid()),
+            title: Field::new(|value| Validator::string(value).required("title is required")),
+            description: Field::new(|value| Validator::string(value).required("description is required")),
         }
     }
 
@@ -117,26 +129,42 @@ pub fn create_todo() -> Html {
 
     html! {
         <Page breadcrumb={vec!["todo", "create"]}>
-            <form {onsubmit}>
+            <form class="flex flex-col space-y-4 max-w-md m-auto justify-center h-full" {onsubmit}>
                 <div class={classes!("flex", "flex-col", "space-y-4")}>
-                    <input
-                        type={"text"}
-                        class={classes!(input_class.clone(), form_state.title.class())}
-                        placeholder={"title"}
-                        value={form_state.title.value.clone()}
-                        oninput={oninput_title}
-                    />
+                    <div>
+                        <input
+                            type="text"
+                            class={classes!(input_class.clone(), form_state.title.class())}
+                            placeholder="title"
+                            value={form_state.title.value.clone()}
+                            oninput={oninput_title}
+                        />
+                        
+                        if !form_state.title.is_valid() && form_state.title.touched {
+                            <span class="text-red-500">
+                                {  form_state.title.get_error_message() }
+                            </span>
+                        }
+                    </div>
+                    
+                    <div>
+                        <input
+                            type="text"
+                            class={classes!(input_class, form_state.description.class())}
+                            placeholder="description"
+                            value={form_state.description.value.clone()}
+                            oninput={oninput_description}
+                        />
 
-                    <input
-                        type={"text"}
-                        class={classes!(input_class, form_state.description.class())}
-                        placeholder={"description"}
-                        value={form_state.description.value.clone()}
-                        oninput={oninput_description}
-                    />
+                        if !form_state.description.is_valid() && form_state.description.touched {
+                            <span class="text-red-500">
+                                {  form_state.description.get_error_message() }
+                            </span>
+                        }
+                    </div>
                 </div>
 
-                <button type="submit" disabled={!form_state.is_valid()}>{"submit"}</button>
+                <Button ty={ButtonType::Submit} disabled={!form_state.is_valid()}>{"submit"}</Button>
             </form>
         </Page>
     }

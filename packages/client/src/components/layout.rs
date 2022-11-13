@@ -13,7 +13,7 @@ pub fn layout(props: &LayoutProps) -> Html {
     html! {
         <div class={"flex"}>
             <SideNav />
-            <div>
+            <div class="w-full">
               { for props.children.iter() }
             </div>
         </div>
