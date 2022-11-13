@@ -12,7 +12,7 @@ pub trait TypeValidator {
     fn get_error_message(&self) -> String;
 }
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub struct StringValidator {
     value: String,
     validate: bool,
