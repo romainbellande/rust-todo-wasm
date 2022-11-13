@@ -17,6 +17,7 @@ jobs:
             toolchain: nightly
             override: true
             components: rustfmt, clippy
+            target: wasm32-unknown-unknown
         - name: check format
           run: cargo check --all
         - name: check lint
