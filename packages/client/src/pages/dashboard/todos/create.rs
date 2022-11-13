@@ -1,6 +1,6 @@
 use crate::components::{Button, ButtonType, Field, FieldDef, Page};
 use crate::graphql::client::{TodosQuery, TodosQueryPayload};
-use validator::{StringValidator, TypeValidator, Validator};
+use validator::{StringValidator, Validator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yew_hooks::prelude::use_async;
