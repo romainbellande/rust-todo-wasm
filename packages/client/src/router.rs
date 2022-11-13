@@ -6,11 +6,15 @@ use yew_router::prelude::*;
 enum Route {
     #[at("/")]
     Dashboard,
+
+    #[at("/:s")]
+    DashboardSub,
 }
 
 fn switch(route: &Route) -> Html {
     match route {
         Route::Dashboard => html! { <Dashboard /> },
+        Route::DashboardSub => html! { <Dashboard /> },
     }
 }
 

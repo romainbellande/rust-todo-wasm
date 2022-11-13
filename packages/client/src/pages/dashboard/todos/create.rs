@@ -84,7 +84,7 @@ pub fn create() -> Html {
 
     html! {
         <Page breadcrumb={vec!["todo", "create"]}>
-            <form class="flex flex-col space-y-4 max-w-md m-auto justify-center h-full" {onsubmit}>
+            <form class="flex flex-col space-y-4 max-w-md m-auto justify-center grow" {onsubmit}>
                 <div class={classes!("flex", "flex-col", "space-y-4")}>
                     <Field<StringValidator>
                         placeholder={"title"}

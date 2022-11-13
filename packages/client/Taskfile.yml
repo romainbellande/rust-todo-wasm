@@ -17,6 +17,7 @@ tasks:
     desc: run client in dev mode
     deps:
       - task: serve
+      - task: gen:css:watch
 
   serve:
     cmds:

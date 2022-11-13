@@ -1,6 +1,6 @@
 use super::request;
 use crate::Error;
-use graphql_client::{GraphQLQuery};
+use graphql_client::GraphQLQuery;
 use std::fmt::Debug;
 
 #[derive(GraphQLQuery, Clone, Debug)]
