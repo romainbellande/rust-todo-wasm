@@ -656,11 +656,13 @@ dependencies = [
  "log",
  "reqwest",
  "serde",
+ "thiserror",
  "validator 0.1.0",
  "wasm-bindgen-futures",
  "wasm-logger",
  "web-sys",
  "yew",
+ "yew-hooks",
  "yew-router",
  "yew_icons",
 ]
@@ -1337,6 +1339,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7fc16d75d169fddb720d8f1c7aed6413e329e1584079b9734ff07266a193f5bc"
 dependencies = [
  "graphql_query_derive",
+ "reqwest",
  "serde",
  "serde_json",
 ]
@@ -3607,6 +3610,22 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "yew-macro",
+]
+
+[[package]]
+name = "yew-hooks"
+version = "0.1.56"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1807cd5bf44c34255534fc8a824b0d6c1022147affecbb7f10c6753f336e7309"
+dependencies = [
+ "gloo 0.4.2",
+ "js-sys",
+ "log",
+ "serde",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "yew",
 ]
 
 [[package]]

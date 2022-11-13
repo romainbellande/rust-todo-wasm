@@ -1,5 +1,4 @@
-use super::dashboard::Dashboard;
-use super::todos::CreateTodo;
+use super::todos;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -11,7 +10,7 @@ pub enum Route {
 
 fn switch(route: &Route) -> Html {
     match route {
-        Route::CreateTodo => html! { <CreateTodo /> },
+        Route::CreateTodo => html! { <todos::Create /> },
     }
 }
 

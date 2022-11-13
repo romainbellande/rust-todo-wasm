@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use validator::TypeValidator;
+use yew::prelude::*;
 
 #[derive(Clone, PartialEq)]
 pub struct FieldDef<T: TypeValidator> {
@@ -51,7 +51,7 @@ pub struct Props<T: TypeValidator + PartialEq> {
     #[prop_or("text")]
     pub ty: &'static str,
 
-    pub oninput: Callback<InputEvent>, 
+    pub oninput: Callback<InputEvent>,
 
     pub field: FieldDef<T>,
 
@@ -72,7 +72,7 @@ pub fn field<T: TypeValidator + PartialEq>(props: &Props<T>) -> Html {
                 value={props.field.value.clone()}
                 oninput={props.oninput.clone()}
             />
-            
+
             if !props.field.is_valid() && props.field.touched {
                 <span class="text-red-500">
                     {  props.field.get_error_message() }

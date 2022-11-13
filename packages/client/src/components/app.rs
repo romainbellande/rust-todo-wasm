@@ -7,17 +7,17 @@ use yew::use_effect;
 
 #[function_component(App)]
 pub fn app() -> Html {
-    use_effect(move || {
-        spawn_local(async {
-            let _result = TodosQuery::send(TodosQueryPayload {}).await.map_err(|err| {
-                log::error!("error {:?}", err);
-            });
-
-            log::debug!("test");
-        });
-
-        || ()
-    });
+    // use_effect(move || {
+    //     spawn_local(async {
+    //         let _result = TodosQuery::send(TodosQueryPayload { limit: Some(20) }).await.map_err(|err| {
+    //             log::error!("error {:?}", err);
+    //         });
+    //
+    //         log::debug!("test");
+    //     });
+    //
+    //     || ()
+    // });
 
     html! {
         <Router />
