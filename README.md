@@ -1,3 +1,5 @@
+![rust build](https://github.com/romainbellande/rust-todo-wasm/actions/workflows/rust.yml/badge.svg)
+
 # Rust Todo wasm
 
 ## Purpose
