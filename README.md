@@ -1,4 +1,4 @@
-![rust build](https://github.com/romainbellande/rust-todo-wasm/actions/workflows/rust.yml/badge.svg)
+![build](https://github.com/romainbellande/rust-todo-wasm/actions/workflows/build.yml/badge.svg)![tests](https://github.com/romainbellande/rust-todo-wasm/actions/workflows/tests.yml/badge.svg)
 
 # Rust Todo wasm
 
