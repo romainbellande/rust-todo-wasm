@@ -1,7 +1,7 @@
 use crate::Error;
-use graphql_client::{reqwest::post_graphql, GraphQLQuery, QueryBody, Response};
-use reqwest::{self, IntoUrl};
-use serde::{de::DeserializeOwned, Serialize};
+use graphql_client::{GraphQLQuery, Response};
+use reqwest::{self};
+
 use std::fmt::Debug;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, Error>
@@ -10,7 +10,7 @@ where
     <Q as GraphQLQuery>::ResponseData: Clone + Debug,
 {
     let client = reqwest::Client::new();
-    let url = "http://127.0.0.1:3000/graphql";
+    let _url = "http://127.0.0.1:3000/graphql";
 
     let body = Q::build_query(variables);
 
