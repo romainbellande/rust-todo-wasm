@@ -25,6 +25,12 @@ tasks:
       - rustup target add wasm32-unknown-unknown
       - npm i -g tailwindcss
 
+  build:prod:
+    desc: build production application
+    cmds:
+      - cargo build --release
+      - cd ./packages/client; trunk build --release --dist ../../target/release/client ./index.prod.html
+
   run:dev:
     desc: run project in development environment
     deps:
