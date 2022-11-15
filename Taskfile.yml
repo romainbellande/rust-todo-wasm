@@ -19,7 +19,6 @@ tasks:
   init:
     desc: init the project
     cmds:
-      - curl -fsSL https://get.pnpm.io/install.sh | sh -
       - cargo install trunk
       - cargo install cargo-watch
       - cargo install sea-orm-cli

@@ -10,7 +10,7 @@ tasks:
   build:release:
     desc: build the client to wasm in release mode
     cmds:
-      - pnpm i
+      - npm i
       - trunk clean
       - task: gen:css:raw
       - trunk build --release --dist ../../target/release/client ./index.prod.html
