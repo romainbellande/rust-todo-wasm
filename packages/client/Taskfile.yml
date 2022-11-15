@@ -10,8 +10,9 @@ tasks:
   build:release:
     desc: build the client to wasm in release mode
     cmds:
+      - pnpm i
       - trunk clean
-      - task: gen:css
+      - task: gen:css:raw
       - trunk build --release --dist ../../target/release/client ./index.prod.html
 
   run:dev:
@@ -24,6 +25,12 @@ tasks:
     cmds:
       - trunk serve --open
 
+  gen:css:raw:
+    env:
+      NODE_ENV: production
+    cmds:
+      - npx tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify
+
   gen:css:
     env:
       NODE_ENV: production
@@ -33,7 +40,7 @@ tasks:
       - ./src/**/*.html
       - ./src/**/*.css
     cmds:
-      - tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify
+      - task: gen:css:raw
 
   gen:css:watch:
     cmds:
