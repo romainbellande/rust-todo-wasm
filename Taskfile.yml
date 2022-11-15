@@ -24,6 +24,15 @@ tasks:
       - cargo install sea-orm-cli
       - rustup target add wasm32-unknown-unknown
 
+  up:
+    desc: run docker-compose with buildkit enabled
+    env:
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      DOCKER_BUILDKIT: 1
+    cmds:
+      - docker-compose up -d
+
+
   build:release:
     desc: build production application
     env:
