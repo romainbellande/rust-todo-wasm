@@ -2,3 +2,4 @@
 dist
 tailwind.css
 .task
+node_modules
