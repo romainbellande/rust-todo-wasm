@@ -19,7 +19,6 @@ tasks:
   init:
     desc: init the project
     cmds:
-      - cargo install sscache
       - cargo install trunk
       - cargo install cargo-watch
       - cargo install sea-orm-cli
