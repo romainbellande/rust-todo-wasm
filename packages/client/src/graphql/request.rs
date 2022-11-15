@@ -1,7 +1,7 @@
 use crate::Error;
+use crate::CONFIG;
 use graphql_client::{GraphQLQuery, Response};
 use reqwest::{self};
-
 use std::fmt::Debug;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, Error>
@@ -15,7 +15,7 @@ where
     let body = Q::build_query(variables);
 
     let request_builder = client
-        .post("http://127.0.0.1:3000/graphql")
+        .post(format!("{}/graphql", CONFIG.api_url))
         .header("Content-Type", "application/json")
         .json(&body);
 

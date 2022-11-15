@@ -13,6 +13,7 @@ env:
   RUST_LOG: debug
   JWT_SECRET: McI6A9!kEgz81v^%f%vVx8mzKS
   SALT: o#596T*O65MATwDX4LtR
+  API_URL: http://127.0.0.1:3000
 
 tasks:
   init:
@@ -27,6 +28,8 @@ tasks:
 
   build:prod:
     desc: build production application
+    env:
+      API_URL: ""
     cmds:
       - cargo build --release
       - cd ./packages/client; trunk build --release --dist ../../target/release/client ./index.prod.html
