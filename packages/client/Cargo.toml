@@ -25,3 +25,4 @@ validator = { path = "../validator" }
 yew_icons = { version = "0.6.1", features = ["heroicons_solid", "heroicons_outline"] }
 yew-hooks = "0.1.56"
 thiserror = "1.0.37"
+once_cell = "1.16.0"

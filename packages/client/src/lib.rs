@@ -1,6 +1,8 @@
 #[macro_use]
 extern crate log;
 
+mod config;
+pub use config::CONFIG;
 mod components;
 mod errors;
 mod graphql;
