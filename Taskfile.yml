@@ -23,15 +23,14 @@ tasks:
       - cargo install cargo-watch
       - cargo install sea-orm-cli
       - rustup target add wasm32-unknown-unknown
-      - npm i -g tailwindcss
 
-  build:prod:
+  build:release:
     desc: build production application
     env:
       API_URL: ""
     cmds:
       - cargo build --release
-      - cd ./packages/client; trunk build --release --dist ../../target/release/client ./index.prod.html
+      - task: client:build:release
 
   run:dev:
     desc: run project in development environment

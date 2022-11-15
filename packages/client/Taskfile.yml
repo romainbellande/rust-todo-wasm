@@ -11,7 +11,8 @@ tasks:
     desc: build the client to wasm in release mode
     cmds:
       - trunk clean
-      - trunk build --release
+      - task: gen:css
+      - trunk build --release --dist ../../target/release/client ./index.prod.html
 
   run:dev:
     desc: run client in dev mode
@@ -32,7 +33,7 @@ tasks:
       - ./src/**/*.html
       - ./src/**/*.css
     cmds:
-      - tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify --watch
+      - tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify
 
   gen:css:watch:
     cmds:
