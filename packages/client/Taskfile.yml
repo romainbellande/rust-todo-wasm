@@ -12,7 +12,7 @@ tasks:
     cmds:
       - pnpm i
       - trunk clean
-      - task: gen:css
+      - task: gen:css:raw
       - trunk build --release --dist ../../target/release/client ./index.prod.html
 
   run:dev:
