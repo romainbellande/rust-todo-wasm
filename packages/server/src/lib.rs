@@ -52,9 +52,9 @@ pub async fn start() {
         .layer(CorsLayer::permissive())
         .fallback(serve_client(CONFIG.client_dir.clone()));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], CONFIG.port));
+    let addr = SocketAddr::from(([0, 0, 0, 0], CONFIG.port));
 
-    println!("GraphiQL IDE: http://127.0.0.1:{}/graphql", CONFIG.port);
+    println!("GraphiQL IDE: http://0.0.0.0:{}/graphql", CONFIG.port);
 
     Server::bind(&addr)
         .serve(app.into_make_service())

@@ -21,7 +21,7 @@ pub async fn graphql_handler(schema: Extension<AppSchema>, req: GraphQLRequest) 
 }
 
 pub async fn graphiql() -> impl IntoResponse {
-    let endpoint = format!("http://127.0.0.1:{}/graphql", CONFIG.port);
+    let endpoint = format!("http://0.0.0.0:{}/graphql", CONFIG.port);
 
     Html(GraphiQLSource::build().endpoint(&endpoint).finish())
 }
