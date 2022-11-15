@@ -20,10 +20,9 @@ services:
       DATABASE_URL: postgres://pguser:pgpass@pg/rust_todo_wasm
       JWT_SECRET: McI6A9!kEgz81v^%f%vVx8mzKS
       SALT: o#596T*O65MATwDX4LtR
-      API_URL: ""
-      PORT: 8080
+      PORT: 8090
     ports:
-      - 8080:8080
+      - 8090:8090
     depends_on:
       - pg
 

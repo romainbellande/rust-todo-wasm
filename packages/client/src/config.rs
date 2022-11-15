@@ -1,5 +1,5 @@
 use once_cell::sync::Lazy;
-use std::env;
+use std::option_env;
 
 pub struct Config {
     pub api_url: String,
@@ -8,7 +8,7 @@ pub struct Config {
 impl Config {
     pub fn new() -> Self {
         Self {
-            api_url: env!("API_URL", "API_URL is required").to_string(),
+            api_url: option_env!("API_URL").unwrap_or_else(|| "http://127.0.0.1:8080").to_string(),
         }
     }
 }
