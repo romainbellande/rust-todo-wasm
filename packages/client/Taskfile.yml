@@ -33,7 +33,7 @@ tasks:
       - ./src/**/*.html
       - ./src/**/*.css
     cmds:
-      - tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify
+      - ../../bin/tailwindcss -c ./tailwind.config.js -i ./src/css/input.css -o ./src/css/tailwind.css --minify
 
   gen:css:watch:
     cmds:
