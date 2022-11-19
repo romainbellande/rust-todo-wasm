@@ -1,6 +1,7 @@
-use crate::modules::todo;
+use crate::modules::{user, todo};
 use sea_orm::{DatabaseConnection, DbErr};
 
 pub async fn exec(conn: &DatabaseConnection) -> Result<(), DbErr> {
-    todo::fixture::exec(conn).await
+    let admin_id = user::fixture::exec(conn).await?;
+    todo::fixture::exec(conn, admin_id).await
 }

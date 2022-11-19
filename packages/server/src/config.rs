@@ -8,6 +8,8 @@ pub struct Config {
     pub port: u16,
     pub database_url: String,
     pub client_dir: String,
+    pub admin_email: String,
+    pub admin_password: String,
 }
 
 impl Config {
@@ -22,6 +24,8 @@ impl Config {
                 .expect("PORT is not valid"),
             database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
             client_dir: env::var("CLIENT_DIR").unwrap_or_else(|_| "../client/dist".to_string()),
+            admin_email: env::var("ADMIN_EMAIL").expect("ADMIN_EMAIL must be set"),
+            admin_password: env::var("ADMIN_PASSWORD").expect("ADMIN_PASSWORD must be set"),
         }
     }
 }
