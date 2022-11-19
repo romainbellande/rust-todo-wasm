@@ -1,8 +1,8 @@
 use crate::utils::times;
 use entity::todo;
-use sea_orm::{DatabaseConnection, DbErr, EntityTrait};
+use sea_orm::{DatabaseConnection, DbErr, EntityTrait, entity::prelude::Uuid};
 
-pub async fn exec(conn: &DatabaseConnection) -> Result<(), DbErr> {
+pub async fn exec(conn: &DatabaseConnection, fake_user_id: Uuid) -> Result<(), DbErr> {
     let name: String = "todo".to_string();
     let result = todo::Entity::delete_many().exec(conn).await;
 
@@ -18,7 +18,7 @@ pub async fn exec(conn: &DatabaseConnection) -> Result<(), DbErr> {
         }
     };
 
-    let models = times(50, |_| todo::Model::new_fake().into_active_model());
+    let models = times(50, |_| todo::Model::new_fake(fake_user_id).into_active_model());
 
     todo::Entity::insert_many(models.clone()).exec(conn).await?;
 

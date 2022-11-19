@@ -31,6 +31,8 @@ pub async fn start() {
         .await
         .expect("could not migrate database");
 
+    println!("migration succeed");
+
     fixtures::exec(&conn)
         .await
         .map_err(|err| {

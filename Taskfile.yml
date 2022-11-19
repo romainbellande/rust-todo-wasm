@@ -77,3 +77,10 @@ tasks:
     cmds:
       - task: format
       - task: lint:fix
+
+  migration:gen:
+    desc: generate new migration
+    env:
+      name:
+    cmds:
+      - sea-orm-cli migrate generate -d ./packages/migration {{.name}}
