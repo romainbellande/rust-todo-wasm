@@ -2,6 +2,3 @@
 target = "index.html"
 dist = "./dist"
 
-[[proxy]]
-rewrite = "/graphql"
-backend = "http://127.0.0.1:3000/graphql"

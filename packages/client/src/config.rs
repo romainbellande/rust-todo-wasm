@@ -2,16 +2,18 @@ use once_cell::sync::Lazy;
 use std::option_env;
 
 pub struct Config {
-    pub api_url: String,
+    pub api_url: Option<String>,
 }
 
 impl Config {
     pub fn new() -> Self {
-        Self {
-            api_url: option_env!("API_URL")
-                .unwrap_or_else(|| "http://127.0.0.1:8080")
-                .to_string(),
-        }
+        let api_url = if let Some(api_url) = option_env!("API_URL") {
+            Some(api_url.to_string())
+        } else {
+            None
+        };
+
+        Self { api_url }
     }
 }
 

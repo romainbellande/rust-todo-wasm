@@ -1,4 +1,4 @@
-use crate::pages::dashboard::Dashboard;
+use crate::pages::{Dashboard, Login};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -9,12 +9,16 @@ enum Route {
 
     #[at("/:s")]
     DashboardSub,
+
+    #[at("/login")]
+    Login,
 }
 
 fn switch(route: &Route) -> Html {
     match route {
         Route::Dashboard => html! { <Dashboard /> },
         Route::DashboardSub => html! { <Dashboard /> },
+        Route::Login => html! { <Login /> },
     }
 }
 

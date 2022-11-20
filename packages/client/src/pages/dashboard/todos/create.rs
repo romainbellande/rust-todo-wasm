@@ -1,5 +1,6 @@
 use crate::components::{Button, ButtonType, Field, FieldDef, Page};
 use crate::graphql::client::{TodosQuery, TodosQueryPayload};
+use crate::utils::macros::oninput;
 use validator::{StringValidator, Validator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
@@ -58,29 +59,9 @@ pub fn create() -> Html {
         })
     };
 
-    let oninput_title = {
-        let form_state = form_state.clone();
+    let oninput_title = oninput!(form_state, title);
 
-        Callback::from(move |e: InputEvent| {
-            let input: HtmlInputElement = e.target_unchecked_into();
-            let mut state = (*form_state).clone();
-            state.title.touched = true;
-            state.title.value = input.value();
-            form_state.set(state.clone());
-        })
-    };
-
-    let oninput_description = {
-        let form_state = form_state.clone();
-
-        Callback::from(move |e: InputEvent| {
-            let input: HtmlInputElement = e.target_unchecked_into();
-            let mut state = (*form_state).clone();
-            state.description.touched = true;
-            state.description.value = input.value();
-            form_state.set(state.clone());
-        })
-    };
+    let oninput_description = oninput!(form_state, description);
 
     html! {
         <Page breadcrumb={vec!["todo", "create"]}>
