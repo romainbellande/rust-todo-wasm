@@ -18,6 +18,7 @@ use migration::{Migrator, MigratorTrait};
 use serve_client::serve_client;
 use std::net::SocketAddr;
 use tower_http::cors::{Any, CorsLayer};
+use axum_extra::routing::SpaRouter;
 
 pub async fn start() {
     let conn = Database::new().get_connection().await;
@@ -49,8 +50,10 @@ pub async fn start() {
     .data(conn)
     .finish();
 
+    let spa = SpaRouter::new("/assets", CONFIG.client_dir.clone());
+
     let app = Router::new()
-        .fallback(serve_client(CONFIG.client_dir.clone()))
+        .merge(spa)
         .route("/graphql", get(graphiql).post(graphql_handler))
         .layer(Extension(schema))
         .layer(CorsLayer::permissive());

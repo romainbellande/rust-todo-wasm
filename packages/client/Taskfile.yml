@@ -13,7 +13,7 @@ tasks:
       - npm i
       - trunk clean
       - task: gen:css:raw
-      - trunk build --release --dist ../../target/release/client ./index.prod.html
+      - trunk build --release --dist ../../target/release/client --public-url /assets/ ./index.prod.html
 
   run:dev:
     desc: run client in dev mode
