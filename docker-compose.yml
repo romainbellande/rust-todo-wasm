@@ -23,6 +23,7 @@ services:
       PORT: 8090
       ADMIN_EMAIL: $ADMIN_EMAIL
       ADMIN_PASSWORD: $ADMIN_PASSWORD
+      RUST_ENV: production
     ports:
       - 8090:8090
     depends_on:

@@ -1,6 +1,22 @@
 use once_cell::sync::Lazy;
 use std::env;
 
+#[derive(Clone, Eq, PartialEq)]
+pub enum RustEnv {
+    Development,
+    Production,
+}
+
+impl RustEnv {
+    pub fn new(value: String) -> Self {
+        match value.as_str() {
+            "development" => Self::Development,
+            "production" => Self::Production,
+            value => panic!("RUST_ENV {} invalid", value),
+        }
+    }
+}
+
 pub struct Config {
     pub jwt_secret: String,
     pub salt: String,
@@ -10,6 +26,7 @@ pub struct Config {
     pub client_dir: String,
     pub admin_email: String,
     pub admin_password: String,
+    pub rust_env: RustEnv,
 }
 
 impl Config {
@@ -26,6 +43,7 @@ impl Config {
             client_dir: env::var("CLIENT_DIR").unwrap_or_else(|_| "../client/dist".to_string()),
             admin_email: env::var("ADMIN_EMAIL").expect("ADMIN_EMAIL must be set"),
             admin_password: env::var("ADMIN_PASSWORD").expect("ADMIN_PASSWORD must be set"),
+            rust_env: RustEnv::new(env::var("RUST_ENV").expect("RUST_ENV must be set")),
         }
     }
 }

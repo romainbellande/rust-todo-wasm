@@ -5,7 +5,7 @@ use std::fmt::Debug;
 
 #[derive(GraphQLQuery, Clone, Debug)]
 #[graphql(
-    schema_path = "graphql/schema.json",
+    schema_path = "graphql/schema.graphql",
     query_path = "graphql/todos.graphql",
     response_derives = "Debug,Clone",
     variables_derives = "Debug,Clone"
