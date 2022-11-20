@@ -1,8 +1,8 @@
 use crate::Error;
+use crate::CONFIG;
 use graphql_client::{GraphQLQuery, Response};
 use reqwest;
 use std::fmt::Debug;
-use crate::CONFIG;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, Error>
 where

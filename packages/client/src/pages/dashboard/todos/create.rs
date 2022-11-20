@@ -1,10 +1,10 @@
 use crate::components::{Button, ButtonType, Field, FieldDef, Page};
 use crate::graphql::client::{TodosQuery, TodosQueryPayload};
+use crate::utils::macros::oninput;
 use validator::{StringValidator, Validator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yew_hooks::prelude::use_async;
-use crate::utils::macros::oninput;
 
 #[derive(Clone, Debug)]
 pub struct CreateTodoDto {
@@ -60,7 +60,7 @@ pub fn create() -> Html {
     };
 
     let oninput_title = oninput!(form_state, title);
-    
+
     let oninput_description = oninput!(form_state, description);
 
     html! {

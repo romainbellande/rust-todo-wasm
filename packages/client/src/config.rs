@@ -13,9 +13,7 @@ impl Config {
             None
         };
 
-        Self {
-            api_url
-        }
+        Self { api_url }
     }
 }
 

@@ -11,14 +11,14 @@ enum Route {
     DashboardSub,
 
     #[at("/login")]
-    Login
+    Login,
 }
 
 fn switch(route: &Route) -> Html {
     match route {
         Route::Dashboard => html! { <Dashboard /> },
         Route::DashboardSub => html! { <Dashboard /> },
-        Route::Login => html! { <Login /> }
+        Route::Login => html! { <Login /> },
     }
 }
 

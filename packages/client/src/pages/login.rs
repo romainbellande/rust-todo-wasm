@@ -1,8 +1,8 @@
+use crate::components::{Button, ButtonType, Field, FieldDef};
+use crate::utils::macros::oninput;
+use validator::{StringValidator, Validator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
-use crate::components::{Button, ButtonType, Field, FieldDef};
-use validator::{StringValidator, Validator};
-use crate::utils::macros::oninput;
 
 #[derive(Clone)]
 struct FormState {
@@ -15,7 +15,9 @@ impl FormState {
     pub fn new() -> Self {
         Self {
             email: FieldDef::new(|value| Validator::string(value).required("email is required")),
-            password: FieldDef::new(|value| Validator::string(value).required("password is required")),
+            password: FieldDef::new(|value| {
+                Validator::string(value).required("password is required")
+            }),
         }
     }
 
