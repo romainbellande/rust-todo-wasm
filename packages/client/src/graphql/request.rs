@@ -2,6 +2,7 @@ use crate::Error;
 use graphql_client::{GraphQLQuery, Response};
 use reqwest;
 use std::fmt::Debug;
+use crate::CONFIG;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, Error>
 where
@@ -10,7 +11,11 @@ where
 {
     let client = reqwest::Client::new();
 
-    let base_url = web_sys::window().unwrap().location().origin().unwrap();
+    let base_url = if let Some(api_url) = CONFIG.api_url.clone() {
+        api_url
+    } else {
+        web_sys::window().unwrap().location().origin().unwrap()
+    };
 
     let url = format!("{}/graphql", base_url);
 

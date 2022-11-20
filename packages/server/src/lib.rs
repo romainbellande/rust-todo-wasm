@@ -50,10 +50,10 @@ pub async fn start() {
     .finish();
 
     let app = Router::new()
+        .fallback(serve_client(CONFIG.client_dir.clone()))
         .route("/graphql", get(graphiql).post(graphql_handler))
         .layer(Extension(schema))
-        .layer(CorsLayer::permissive())
-        .fallback(serve_client(CONFIG.client_dir.clone()));
+        .layer(CorsLayer::permissive());
 
     let addr = SocketAddr::from(([0, 0, 0, 0], CONFIG.port));
 
