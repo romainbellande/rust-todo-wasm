@@ -1,6 +1,7 @@
 mod command;
 mod config;
 mod db;
+mod errors;
 mod fixtures;
 mod graphql;
 mod modules;

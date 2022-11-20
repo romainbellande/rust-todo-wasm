@@ -1,4 +1,4 @@
-use sea_orm::{EntityTrait, DatabaseConnection};
+use sea_orm::{DatabaseConnection, EntityTrait};
 
 pub async fn delete_many<Entity: EntityTrait>(conn: &DatabaseConnection, name: &'static str) {
     let result = Entity::delete_many().exec(conn).await;
