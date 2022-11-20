@@ -19,7 +19,7 @@ For example:
 * Create a browser toolkit crate library for common browser tasks (e.g. data )
 * Create a server toolkit crate library for common server tasks
 
-## References
+## Resources
 
 * [rust wasm frontend setup with axum](https://robert.kra.hn/posts/2022-04-03_rust-web-wasm/)
 * [async graphql axum example](https://github.com/async-graphql/examples/tree/master/axum/subscription)

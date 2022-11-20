@@ -38,6 +38,8 @@ tasks:
 
   run:dev:
     desc: run project in development environment
+    env:
+      RUST_ENV: development
     deps:
       - task: server:run:dev
       - task: client:run:dev
