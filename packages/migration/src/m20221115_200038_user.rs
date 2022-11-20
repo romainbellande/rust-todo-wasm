@@ -1,5 +1,5 @@
-use sea_orm_migration::prelude::*;
 use entity::user::{Column, Entity as User};
+use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -23,4 +23,3 @@ impl MigrationTrait for Migration {
             .await
     }
 }
-

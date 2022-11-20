@@ -30,10 +30,7 @@ impl Model {
     }
 
     pub fn verify_password(&self, password: String) -> bool {
-        match argon2::verify_encoded(&self.password_hash, password.as_bytes()) {
-            Ok(res) => res,
-            Err(_) => false,
-        }
+        argon2::verify_encoded(&self.password_hash, password.as_bytes()).unwrap_or(false)
     }
 
     pub fn into_active_model(&self) -> ActiveModel {

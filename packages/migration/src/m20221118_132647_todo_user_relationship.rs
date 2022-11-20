@@ -1,7 +1,8 @@
+use entity::{todo, user};
+use sea_orm::EntityTrait;
 use sea_orm_migration::prelude::*;
-use entity::{user, todo};
 
-const FK_TODO_USER_ID: &'static str = "FK_TODO_USER_ID_0429e73d-e88e-4574-8db4-d0d45015eee0";
+const FK_TODO_USER_ID: &str = "FK_TODO_USER_ID_0429e73d-e88e-4574-8db4-d0d45015eee0";
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -9,6 +10,10 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        let conn = manager.get_connection();
+
+        todo::Entity::delete_many().exec(conn).await.unwrap();
+
         let todo_table = Table::alter()
             .table(todo::Entity)
             .add_column(ColumnDef::new(todo::Column::UserId).uuid().not_null())
@@ -41,4 +46,3 @@ impl MigrationTrait for Migration {
         manager.drop_foreign_key(drop_user_id_fk).await
     }
 }
-

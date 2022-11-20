@@ -2,7 +2,7 @@ use async_graphql::*;
 use fake::faker::lorem::en::{Sentence, Word};
 use fake::Fake;
 use field_names::FieldNames;
-use sea_orm::{entity::prelude::*, Set, DeleteMany};
+use sea_orm::{entity::prelude::*, DeleteMany, Set};
 use serde::{Deserialize, Serialize};
 use validator::Validate;
 
@@ -30,7 +30,7 @@ impl Model {
             id: Uuid::new_v4(),
             title,
             description,
-            user_id
+            user_id,
         }
     }
 
@@ -48,7 +48,7 @@ impl Model {
             id: Set(self.id.to_owned()),
             title: Set(self.title.to_owned()),
             description: Set(self.description.to_owned()),
-            user_id: Set(self.user_id.to_owned())
+            user_id: Set(self.user_id.to_owned()),
         }
     }
 }

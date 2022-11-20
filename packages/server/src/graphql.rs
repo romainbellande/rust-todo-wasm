@@ -6,10 +6,11 @@ use axum::{
 };
 
 use crate::config::CONFIG;
+use crate::modules::auth::AuthQuery;
 use crate::modules::todo::{TodoMutation, TodoQuery};
 
 #[derive(MergedObject, Default)]
-pub struct QueryRoot(TodoQuery);
+pub struct QueryRoot(TodoQuery, AuthQuery);
 
 #[derive(MergedObject, Default)]
 pub struct MutationRoot(TodoMutation);
