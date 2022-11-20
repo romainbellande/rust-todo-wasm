@@ -70,7 +70,7 @@ pub fn field<T: TypeValidator + PartialEq>(props: &Props<T>) -> Html {
         <div class="flex flex-col">
             <input
                 type="text"
-                class={classes!(props.field.class(), input_class.clone(), props.class.clone())}
+                class={classes!(props.field.class(), input_class.clone(), props.class)}
                 placeholder={props.placeholder}
                 value={props.field.value.clone()}
                 oninput={props.oninput.clone()}
