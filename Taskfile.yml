@@ -85,3 +85,9 @@ tasks:
       name:
     cmds:
       - sea-orm-cli migrate generate -d ./packages/migration {{.name}}
+
+
+  readme:toc:
+    desc: generate table of content in README.md
+    cmds:
+      - gh-md-toc --insert --no-backup --skip-header ./README.md
