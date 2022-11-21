@@ -2,6 +2,21 @@
 
 # Rust Todo wasm
 
+## Table of Contents
+
+<!--ts-->
+   * [Purpose](#purpose)
+   * [Requirements](#requirements)
+      * [Environment variables](#environment-variables)
+   * [Start the applications](#start-the-applications)
+   * [Roadmap](#roadmap)
+   * [Resources](#resources)
+
+<!-- Created by https://github.com/ekalinin/github-markdown-toc -->
+<!-- Added by: naimor, at: lun. 21 nov. 2022 13:05:02 CET -->
+
+<!--te-->
+
 ## Purpose
 
 The purpose of this project is to create a fullstack app thanks to the following tools:
@@ -10,7 +25,7 @@ The purpose of this project is to create a fullstack app thanks to the following
 * [axum](https://github.com/tokio-rs/axum): Ergonomic and modular web framework built with Tokio, Tower, and Hyper
 * [seaorm](https://www.sea-ql.org/SeaORM/): A relational ORM to help you build web services in Rustquery language
 * [tailwind](https://tailwindcss.com): A utility-first CSS framework.
-* [async graphql](https://github.com/async-graphql/async-graphql): A utility-first CSS framework.
+* [async graphql](https://github.com/async-graphql/async-graphql): A GraphQL server library implemented in Rust.
 
 ## Requirements
 
@@ -39,6 +54,27 @@ During development all environment variables are already set in [.env file](./.e
 ## Start the applications
 
 * run `task run:dev`, server will be running on [http://127.0.0.1:3000](http://127.0.0.1:3000) and client will be running on [http://127.0.0.1:8080](http://127.0.0.1:8080) 
+
+## Roadmap
+
+* [ ] create todos
+* [ ] update todo
+* [ ] login & global authorization state
+* [ ] authorization guards (client / server)
+* [ ] client side pagination
+* [ ] users ACL
+* [ ] todo boards
+* [ ] todo tags
+* [ ] graphql filters (macro)
+* [ ] user groups
+* [ ] user invitation
+* [X] server authorization module with JWT
+* [X] simple form management (macro)
+* [X] get todos
+* [X] graphql server
+* [X] dockerization for deployement
+* [X] basic CI / CD (github workflows)
+* [X] deployement to [render](https://render.com/)
 
 ## Resources
 
