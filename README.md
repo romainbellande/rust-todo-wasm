@@ -57,17 +57,17 @@ During development all environment variables are already set in [.env file](./.e
 
 ## Roadmap
 
-* [] create todos
-* [] update todo
-* [] login & global authorization state
-* [] authorization guards (client / server)
-* [] client side pagination
-* [] users ACL
-* [] todo boards
-* [] todo tags
-* [] graphql filters (macro)
-* [] user groups
-* [] user invitation
+* [ ] create todos
+* [ ] update todo
+* [ ] login & global authorization state
+* [ ] authorization guards (client / server)
+* [ ] client side pagination
+* [ ] users ACL
+* [ ] todo boards
+* [ ] todo tags
+* [ ] graphql filters (macro)
+* [ ] user groups
+* [ ] user invitation
 * [X] server authorization module with JWT
 * [X] simple form management (macro)
 * [X] get todos
