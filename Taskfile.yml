@@ -27,7 +27,6 @@ tasks:
     cmds:
       - docker-compose up -d
 
-
   build:release:
     desc: build production application
     env:
