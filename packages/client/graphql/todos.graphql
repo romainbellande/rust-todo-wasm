@@ -1,4 +1,4 @@
-query TodosQuery($limit: Int) {
+query FindTodos($limit: Int) {
   todos(limit: $limit) {
     data {
       title

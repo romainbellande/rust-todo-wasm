@@ -1,5 +1,5 @@
 use crate::components::{Button, ButtonType, Field, FieldDef, Page};
-use crate::graphql::client::{TodosQuery, TodosQueryPayload};
+use crate::graphql::client::{FindTodos, FindTodosPayload};
 use crate::utils::macros::oninput;
 use validator::{StringValidator, Validator};
 use web_sys::HtmlInputElement;
@@ -55,7 +55,7 @@ pub fn create() -> Html {
             let dto: CreateTodoDto = (*form_state).clone().into();
             log::debug!("dto: {:?}", dto);
 
-            use_async(async move { TodosQuery::send(TodosQueryPayload { limit: Some(20) }).await });
+            use_async(async move { FindTodos::send(FindTodosPayload { limit: Some(20) }).await });
         })
     };
 
