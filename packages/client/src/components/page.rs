@@ -17,12 +17,11 @@ pub struct PageProps {
 
 #[function_component(Page)]
 pub fn page(props: &PageProps) -> Html {
-    log::debug!("error: {:?}", props.error);
     html! {
         <div class="py-4 px-10 min-h-screen flex flex-col">
             <Breadcrumb items={props.breadcrumb.clone()} />
             <div class="px-10 py-4 grow relative flex">
-                if !props.loading && !props.error.is_some() {
+                if !props.loading && props.error.is_none() {
                     {for props.children.iter()}
                 } else if let Some(error) = props.error.clone() {
                     <PageError {error} />

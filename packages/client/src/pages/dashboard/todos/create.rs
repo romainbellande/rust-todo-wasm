@@ -1,10 +1,8 @@
 use crate::components::{Button, ButtonType, Field, FieldDef, Page};
-use crate::graphql::client::{TodosQuery, TodosQueryPayload};
 use crate::utils::macros::oninput;
 use validator::{StringValidator, Validator};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
-use yew_hooks::prelude::use_async;
 
 #[derive(Clone, Debug)]
 pub struct CreateTodoDto {
@@ -34,28 +32,26 @@ impl FormState {
     }
 }
 
-impl Into<CreateTodoDto> for FormState {
-    fn into(self) -> CreateTodoDto {
+impl From<FormState> for CreateTodoDto {
+    fn from(val: FormState) -> Self {
         CreateTodoDto {
-            title: self.title.value.clone(),
-            description: self.description.value.clone(),
+            title: val.title.value.clone(),
+            description: val.description.value,
         }
     }
 }
 
 #[function_component(Create)]
 pub fn create() -> Html {
-    let form_state = use_state(|| FormState::new());
+    let form_state = use_state(FormState::new);
 
     let onsubmit = {
         let form_state = form_state.clone();
 
-        Callback::from(move |e: FocusEvent| {
+        Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
-            let dto: CreateTodoDto = (*form_state).clone().into();
-            log::debug!("dto: {:?}", dto);
-
-            use_async(async move { TodosQuery::send(TodosQueryPayload { limit: Some(20) }).await });
+            let _dto: CreateTodoDto = (*form_state).clone().into();
+            todo!("submit dto to api");
         })
     };
 

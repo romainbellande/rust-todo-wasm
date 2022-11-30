@@ -1,12 +1,12 @@
 use crate::components::Page;
-use crate::graphql::client::{TodosQuery, TodosQueryPayload};
+use crate::graphql::client::{FindTodos, FindTodosPayload};
 use yew::prelude::*;
 use yew_hooks::prelude::{use_async_with_options, UseAsyncOptions};
 
 #[function_component(List)]
 pub fn list() -> Html {
     let todos_response = use_async_with_options(
-        async move { TodosQuery::send(TodosQueryPayload { limit: Some(20) }).await },
+        async move { FindTodos::send(FindTodosPayload { limit: Some(20) }).await },
         UseAsyncOptions::enable_auto(),
     );
 

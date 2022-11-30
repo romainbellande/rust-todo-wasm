@@ -1,0 +1,5 @@
+query LoginQuery($credentials: Credentials!) {
+    login(credentials: $credentials) {
+        accessToken
+    }
+} 

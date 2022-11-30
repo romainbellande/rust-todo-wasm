@@ -7,11 +7,7 @@ pub struct Config {
 
 impl Config {
     pub fn new() -> Self {
-        let api_url = if let Some(api_url) = option_env!("API_URL") {
-            Some(api_url.to_string())
-        } else {
-            None
-        };
+        let api_url = option_env!("API_URL").map(|api_url| api_url.to_string());
 
         Self { api_url }
     }

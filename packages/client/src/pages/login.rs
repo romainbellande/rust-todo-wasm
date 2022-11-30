@@ -1,6 +1,9 @@
 use crate::components::{Button, ButtonType, Field, FieldDef};
+use crate::graphql::auth::login_query::Credentials;
+use crate::graphql::auth::{LoginPayload, LoginQuery};
 use crate::utils::macros::oninput;
 use validator::{StringValidator, Validator};
+use wasm_bindgen_futures::spawn_local;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 
@@ -9,6 +12,17 @@ struct FormState {
     email: FieldDef<StringValidator>,
 
     password: FieldDef<StringValidator>,
+}
+
+impl From<FormState> for LoginPayload {
+    fn from(val: FormState) -> Self {
+        let credentials = Credentials {
+            email: val.email.value.clone(),
+            password: val.password.value,
+        };
+
+        LoginPayload { credentials }
+    }
 }
 
 impl FormState {
@@ -28,13 +42,17 @@ impl FormState {
 
 #[function_component(Login)]
 pub fn login() -> Html {
-    let form_state = use_state(|| FormState::new());
+    let form_state = use_state(FormState::new);
 
     let onsubmit = {
         let form_state = form_state.clone();
 
-        Callback::from(move |e: FocusEvent| {
+        Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
+            let dto: LoginPayload = (*form_state).clone().into();
+            spawn_local(async {
+                LoginQuery::send(dto).await;
+            });
         })
     };
 
