@@ -11,7 +11,7 @@ pub enum Route {
     TodoCreate,
 }
 
-fn switch(route: &Route) -> Html {
+fn switch(route: Route) -> Html {
     match route {
         Route::TodoList => html! { <todos::List /> },
         Route::TodoCreate => html! { <todos::Create /> },
@@ -21,6 +21,6 @@ fn switch(route: &Route) -> Html {
 #[function_component(Router)]
 pub fn router() -> Html {
     html! {
-            <Switch<Route> render={Switch::render(switch)} />
+            <Switch<Route> render={switch} />
     }
 }

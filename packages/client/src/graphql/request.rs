@@ -1,7 +1,7 @@
 use crate::Error;
 use crate::CONFIG;
 use graphql_client::{GraphQLQuery, Response};
-use reqwest;
+
 use std::fmt::Debug;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, Error>
@@ -35,7 +35,6 @@ where
             let data: Result<Response<Q::ResponseData>, _> = data.json().await;
 
             if let Ok(data) = data {
-                log::debug!("Response: {:#?}", data);
                 if let Some(data) = data.data {
                     Ok(data)
                 } else {

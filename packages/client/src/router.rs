@@ -14,7 +14,7 @@ enum Route {
     Login,
 }
 
-fn switch(route: &Route) -> Html {
+fn switch(route: Route) -> Html {
     match route {
         Route::Dashboard => html! { <Dashboard /> },
         Route::DashboardSub => html! { <Dashboard /> },
@@ -26,7 +26,7 @@ fn switch(route: &Route) -> Html {
 pub fn router() -> Html {
     html! {
         <BrowserRouter>
-            <Switch<Route> render={Switch::render(switch)} />
+            <Switch<Route> render={switch} />
         </BrowserRouter>
     }
 }

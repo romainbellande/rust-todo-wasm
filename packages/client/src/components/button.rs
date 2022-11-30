@@ -49,7 +49,7 @@ pub fn button(props: &ButtonProps) -> Html {
             disabled={props.disabled}
             type={props.ty.as_str()}
             onclick={&props.onclick}
-            class={classes!(button_class, props.disabled.then(|| Some(button_disabled_class)))}       >
+            class={classes!(button_class, props.disabled.then_some(Some(button_disabled_class)))}       >
             { for props.children.iter() }
         </button>
     }
