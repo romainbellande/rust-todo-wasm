@@ -10,7 +10,7 @@ path = "src/main.rs"
 
 [dependencies]
 graphql_client = { version = "0.11.0", features = ["reqwest"]}
-yew = "0.20.0"
+yew = { version = "0.20.0", features = [ "csr" ] }
 yew-router = "0.17.0"
 serde = "1.0.145"
 wasm-bindgen-futures = "0.4.33"
@@ -26,3 +26,4 @@ yew_icons = { version = "0.6.1", features = ["heroicons_solid", "heroicons_outli
 yew-hooks = "0.2.0"
 thiserror = "1.0.37"
 once_cell = "1.16.0"
+yewdux = "0.9.0"
