@@ -1,11 +1,13 @@
 use crate::components::{Button, ButtonType, Field, FieldDef};
 use crate::graphql::auth::login_query::Credentials;
 use crate::graphql::auth::{LoginPayload, LoginQuery};
+use crate::store::{Action, AppStore};
 use crate::utils::macros::oninput;
 use validator::{StringValidator, Validator};
 use wasm_bindgen_futures::spawn_local;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
+use yewdux::prelude::*;
 
 #[derive(Clone)]
 struct FormState {
@@ -42,6 +44,7 @@ impl FormState {
 
 #[function_component(Login)]
 pub fn login() -> Html {
+    let (_store, dispatch) = use_store::<AppStore>();
     let form_state = use_state(FormState::new);
 
     let onsubmit = {
@@ -50,8 +53,20 @@ pub fn login() -> Html {
         Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
             let dto: LoginPayload = (*form_state).clone().into();
-            spawn_local(async {
-                LoginQuery::send(dto).await;
+            let dispatch = dispatch.clone();
+
+            spawn_local(async move {
+                let result = LoginQuery::send(dto).await;
+
+                match result {
+                    Ok(token_success) => {
+                        let access_token = token_success.login.access_token;
+                        dispatch.apply(Action::SetAccessToken(access_token));
+                    }
+                    Err(token_err) => {
+                        log::error!("{}", token_err);
+                    }
+                }
             });
         })
     };
@@ -72,6 +87,7 @@ pub fn login() -> Html {
                     />
 
                     <Field<StringValidator>
+                        ty="password"
                         field={form_state.password.clone()}
                         placeholder="password"
                         oninput={oninput_password}
