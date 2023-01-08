@@ -79,6 +79,7 @@ pub fn login() -> Html {
                         placeholder="password"
                         oninput={oninput_password}
                         class="w-80"
+                        ty="password"
                     />
 
                     <div class="flex justify-end">
