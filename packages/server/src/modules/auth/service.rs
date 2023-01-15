@@ -2,7 +2,7 @@ use super::{
     body::AuthBody, claims::Claims, credentials::Credentials, errors::AuthError, keys::KEYS,
 };
 use crate::{
-    errors::{graphql_error, Error as AppError, WebError},
+    utils::errors::{CommonError, graphql_error, WebError},
     modules::user::Error as UserError,
 };
 use async_graphql::{Error, Result};
@@ -24,7 +24,7 @@ pub async fn authorize(
         .await;
 
     let my_user =
-        my_user.map_err(|err| graphql_error!(AppError::InternalServerError(err.to_string())))?;
+        my_user.map_err(|err| graphql_error!(CommonError::InternalServerError(err.to_string())))?;
 
     let my_user =
         my_user.ok_or_else(|| graphql_error!(UserError::NotFound(credentials.email.clone())))?;

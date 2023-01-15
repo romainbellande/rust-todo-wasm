@@ -1,8 +1,6 @@
-use crate::errors::WebError;
+use crate::utils::errors::{WebError, AppError};
 use axum::{
     http::StatusCode,
-    response::{IntoResponse, Response},
-    Json,
 };
 use thiserror::Error;
 
@@ -21,29 +19,34 @@ pub enum AuthError {
     InvalidToken,
 }
 
+impl AppError for AuthError {
+    fn get_code(&self) -> String {
+        let code = match self {
+            Self::MissingCredentials => "MISSING_CREDENTIALS",
+            Self::InvalidToken => "INVALID_TOKEN",
+            Self::TokenCreation => "TOKEN_CREATION",
+            Self::WrongCredentials => "WRONG_CREDENTIALS",
+        };
+
+        code.to_string()
+    }
+
+    fn get_status_code(&self) -> StatusCode {
+        match self {
+            Self::WrongCredentials => StatusCode::BAD_REQUEST,
+            Self::InvalidToken => StatusCode::BAD_REQUEST,
+            Self::MissingCredentials => StatusCode::BAD_REQUEST,
+            Self::TokenCreation => StatusCode::INTERNAL_SERVER_ERROR,
+        }
+    }
+}
+
 impl Into<WebError> for AuthError {
     fn into(self) -> WebError {
-        match self {
-            Self::WrongCredentials => WebError {
-                code: 1,
-                status: StatusCode::UNAUTHORIZED,
-                message: self.to_string(),
-            },
-            Self::MissingCredentials => WebError {
-                code: 2,
-                status: StatusCode::BAD_REQUEST,
-                message: self.to_string(),
-            },
-            Self::TokenCreation => WebError {
-                code: 3,
-                status: StatusCode::INTERNAL_SERVER_ERROR,
-                message: self.to_string(),
-            },
-            Self::InvalidToken => WebError {
-                code: 4,
-                status: StatusCode::BAD_REQUEST,
-                message: self.to_string(),
-            },
+        WebError {
+            code: self.get_code(),
+            status: self.get_status_code(),
+            message: self.to_string(),
         }
     }
 }
