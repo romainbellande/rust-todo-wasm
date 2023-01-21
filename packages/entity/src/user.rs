@@ -38,7 +38,6 @@ impl Model {
             id: Set(self.id.to_owned()),
             email: Set(self.email.to_owned()),
             password_hash: Set(self.password_hash.to_owned()),
-            ..Default::default()
         }
     }
 }

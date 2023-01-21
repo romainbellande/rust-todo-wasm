@@ -1,10 +1,7 @@
 use super::{
     body::AuthBody, claims::Claims, credentials::Credentials, errors::AuthError, keys::KEYS,
 };
-use crate::{
-    utils::errors::{CommonError, graphql_error, WebError},
-    modules::user::Error as UserError,
-};
+use crate::utils::errors::{graphql_error, CommonError};
 use async_graphql::{Error, Result};
 use entity::user;
 use jsonwebtoken::{encode, Header};
@@ -26,8 +23,7 @@ pub async fn authorize(
     let my_user =
         my_user.map_err(|err| graphql_error!(CommonError::InternalServerError(err.to_string())))?;
 
-    let my_user =
-        my_user.ok_or_else(|| graphql_error!(UserError::NotFound(credentials.email.clone())))?;
+    let my_user = my_user.ok_or_else(|| graphql_error!(AuthError::WrongCredentials))?;
 
     // Here you can check the user credentials from a database
     if !my_user.verify_password(credentials.password) {
@@ -35,7 +31,7 @@ pub async fn authorize(
     }
 
     let claims = Claims {
-        sub: my_user.id.to_string().to_owned(),
+        sub: my_user.id.to_string(),
         company: "ACME".to_owned(),
         // TODO: add roles here
         // Mandatory expiry time as UTC timestamp

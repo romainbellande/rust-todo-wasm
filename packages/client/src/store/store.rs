@@ -21,4 +21,3 @@ impl Reducer<AppStore> for Action {
         store
     }
 }
-

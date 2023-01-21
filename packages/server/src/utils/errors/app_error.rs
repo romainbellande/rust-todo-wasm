@@ -1,5 +1,7 @@
+use super::web_error;
 use super::WebError;
 use http::StatusCode;
+use shared::errors;
 use thiserror::Error as ThisError;
 
 pub trait AppError: ToString {
@@ -35,13 +37,13 @@ pub enum CommonError {
 impl AppError for CommonError {
     fn get_code(&self) -> String {
         let str = match self {
-            Self::BadRequest(_) => "BAD_REQUEST",
-            Self::InternalServerError(_) => "INTERNAL_SERVER_ERROR",
-            Self::Forbidden => "FORBIDDEN",
-            Self::Gone => "GONE",
-            Self::GenericError => "GENERIC_ERROR",
-            Self::RequestTimeout => "REQUEST_TIMEOUT",
-            Self::Unauthorized(_) => "UNAUTHORIZED",
+            Self::BadRequest(_) => errors::AppError::BadRequest,
+            Self::InternalServerError(_) => errors::AppError::InternalServerError,
+            Self::Forbidden => errors::AppError::InternalServerError,
+            Self::Gone => errors::AppError::Gone,
+            Self::GenericError => errors::AppError::GenericError,
+            Self::RequestTimeout => errors::AppError::RequestTimeout,
+            Self::Unauthorized(_) => errors::AppError::Unauthorized,
         };
 
         str.to_string()
@@ -60,12 +62,4 @@ impl AppError for CommonError {
     }
 }
 
-impl Into<WebError> for CommonError {
-    fn into(self) -> WebError {
-        WebError {
-            code: self.get_code(),
-            status: self.get_status_code(),
-            message: self.to_string(),
-        }
-    }
-}
+web_error!(CommonError);

@@ -1,9 +1,9 @@
-use crate::Error;
+use shared::errors::AppError;
 use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    pub error: Error,
+    pub error: AppError,
 }
 
 #[function_component(PageError)]

@@ -1,10 +1,10 @@
-use std::fmt;
 use async_graphql::{Error as GraphQLError, ErrorExtensions};
 use axum::response::{IntoResponse, Response};
 use http::StatusCode;
-use thiserror::Error;
 
-use super::{AppError, CommonError};
+use std::fmt;
+
+use super::AppError;
 
 #[derive(Debug, Clone)]
 pub struct WebError {
@@ -31,19 +31,10 @@ impl WebError {
     }
 }
 
-// impl From<Box<dyn AppError>> for WebError {
-//     fn from(value: Box<dyn AppError>) -> Self {
-//         Self {
-//             status: value.get_status_code(),
-//             code: value.get_code(),
-//             message: value.to_string(),
-//         }
-//     }
-// }
-
 impl ErrorExtensions for WebError {
     fn extend(&self) -> GraphQLError {
         GraphQLError::new(self.message.clone()).extend_with(|_, e| {
+            println!("{}", self.code.clone());
             e.set("code", self.code.clone());
             e.set("status", self.status.as_u16());
         })
@@ -56,3 +47,18 @@ impl IntoResponse for WebError {
     }
 }
 
+macro_rules! web_error {
+    ($t:ty) => {
+        impl Into<WebError> for $t {
+            fn into(self) -> WebError {
+                WebError {
+                    code: self.get_code(),
+                    status: self.get_status_code(),
+                    message: self.to_string(),
+                }
+            }
+        }
+    };
+}
+
+pub(crate) use web_error;

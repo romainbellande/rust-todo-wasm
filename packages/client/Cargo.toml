@@ -9,6 +9,8 @@ path = "src/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+shared = { path = "../shared" }
+
 graphql_client = { version = "0.11.0", features = ["reqwest"]}
 yew = { version = "0.20.0", features = [ "csr" ] }
 yew-router = "0.17.0"
@@ -27,3 +29,16 @@ yew-hooks = "0.2.0"
 thiserror = "1.0.37"
 once_cell = "1.16.0"
 yewdux = "0.9.0"
+rust-i18n = "1.1.1"
+
+[package.metadata.i18n]
+# The available locales for your application, default: ["en"].
+# available-locales = ["en", "zh-CN"]
+
+# The default locale, default: "en".
+# default-locale = "en"
+
+# Path for your translations YAML file, default: "locales".
+# This config for let `cargo i18n` command line tool know where to find your translations.
+# You must keep this path is same as the path you pass to `rust_i18n::i18n!` method.
+# load-path = "locales"

@@ -1,6 +1,7 @@
+use crate::utils::errors::{web_error, AppError, WebError};
 use axum::http::StatusCode;
+use shared::errors;
 use thiserror::Error;
-use crate::utils::errors::{AppError, WebError};
 
 #[derive(Error, Debug, Clone)]
 pub enum Error {
@@ -14,8 +15,8 @@ pub enum Error {
 impl AppError for Error {
     fn get_code(&self) -> String {
         let str = match self {
-            Self::NotFound(_) => "USER_NOT_FOUND",
-            Self::CouldNotSaveUser(_) => "COULD_NOT_SAVE_USER"
+            Self::NotFound(_) => errors::AppError::UserNotFound,
+            Self::CouldNotSaveUser(_) => errors::AppError::CouldNotSaveUser,
         };
 
         str.to_string()
@@ -29,19 +30,4 @@ impl AppError for Error {
     }
 }
 
-impl Into<WebError> for Error {
-    fn into(self) -> WebError {
-        match self.clone() {
-            Self::CouldNotSaveUser(_) => WebError {
-                code: self.get_code(),
-                status: self.get_status_code(),
-                message: self.to_string(),
-            },
-            Self::NotFound(_) => WebError {
-                code: self.get_code(),
-                status: self.get_status_code(),
-                message: self.to_string(),
-            },
-        }
-    }
-}
+web_error!(Error);

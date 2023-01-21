@@ -4,30 +4,42 @@ use thiserror::Error as ThisError;
 #[derive(ThisError, Clone, Debug, PartialEq)]
 pub enum Error {
     /// 401
-    #[error("Unauthorized")]
+    #[error("unauthorized")]
     Unauthorized,
 
     /// 403
-    #[error("Forbidden")]
+    #[error("forbidden")]
     Forbidden,
 
     /// 404
-    #[error("Not Found")]
+    #[error("not found")]
     NotFound,
 
     /// 422
-    #[error("Unprocessable Entity")]
+    #[error("unprocessable entity")]
     UnprocessableEntity,
 
     /// 500
-    #[error("Internal Server Error")]
+    #[error("internal server error")]
     InternalServerError,
 
     /// serde deserialize error
-    #[error("Deserialize Error")]
+    #[error("deserialize error")]
     DeserializeError,
 
     /// request error
-    #[error("Http Request Error")]
+    #[error("http request error")]
     RequestError,
+
+    #[error("no error extension")]
+    NoErrorExtension,
+
+    #[error("no error code provided")]
+    NoErrorCodeProvided,
+
+    #[error("unknown error code")]
+    UnknownErrorCode,
+
+    #[error("provided error code is not a string")]
+    ErrorCodeIsNotStr,
 }

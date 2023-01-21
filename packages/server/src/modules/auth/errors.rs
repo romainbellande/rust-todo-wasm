@@ -1,7 +1,6 @@
-use crate::utils::errors::{WebError, AppError};
-use axum::{
-    http::StatusCode,
-};
+use crate::utils::errors::{web_error, AppError, WebError};
+use axum::http::StatusCode;
+use shared::errors;
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -22,10 +21,10 @@ pub enum AuthError {
 impl AppError for AuthError {
     fn get_code(&self) -> String {
         let code = match self {
-            Self::MissingCredentials => "MISSING_CREDENTIALS",
-            Self::InvalidToken => "INVALID_TOKEN",
-            Self::TokenCreation => "TOKEN_CREATION",
-            Self::WrongCredentials => "WRONG_CREDENTIALS",
+            Self::MissingCredentials => errors::AppError::MissingCredentials,
+            Self::InvalidToken => errors::AppError::InvalidToken,
+            Self::TokenCreation => errors::AppError::TokenCreation,
+            Self::WrongCredentials => errors::AppError::WrongCredentials,
         };
 
         code.to_string()
@@ -41,12 +40,4 @@ impl AppError for AuthError {
     }
 }
 
-impl Into<WebError> for AuthError {
-    fn into(self) -> WebError {
-        WebError {
-            code: self.get_code(),
-            status: self.get_status_code(),
-            message: self.to_string(),
-        }
-    }
-}
+web_error!(AuthError);
