@@ -1,5 +1,5 @@
 use super::{errors::AuthError, keys::KEYS};
-use crate::errors::WebError;
+use crate::utils::errors::WebError;
 use axum::{
     async_trait,
     extract::{FromRequest, RequestParts, TypedHeader},

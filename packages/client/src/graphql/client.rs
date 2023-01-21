@@ -1,6 +1,6 @@
 use super::request;
-use crate::Error;
 use graphql_client::GraphQLQuery;
+use shared::errors::AppError;
 use std::fmt::Debug;
 
 #[derive(GraphQLQuery, Clone, Debug)]
@@ -13,7 +13,7 @@ use std::fmt::Debug;
 pub struct FindTodos;
 
 impl FindTodos {
-    pub async fn send(variables: FindTodosPayload) -> Result<find_todos::ResponseData, Error> {
+    pub async fn send(variables: FindTodosPayload) -> Result<find_todos::ResponseData, AppError> {
         request::<Self>(variables).await
     }
 }

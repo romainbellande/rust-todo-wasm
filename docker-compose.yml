@@ -13,21 +13,5 @@ services:
     volumes:
       - pg-data:/var/lib/postgresql/data
 
-  app:
-    build: .
-    environment:
-      CLIENT_DIR: ../client
-      DATABASE_URL: postgres://pguser:pgpass@pg/rust_todo_wasm
-      JWT_SECRET: McI6A9!kEgz81v^%f%vVx8mzKS
-      SALT: o#596T*O65MATwDX4LtR
-      PORT: 8090
-      ADMIN_EMAIL: $ADMIN_EMAIL
-      ADMIN_PASSWORD: $ADMIN_PASSWORD
-      RUST_ENV: production
-    ports:
-      - 8090:8090
-    depends_on:
-      - pg
-
 volumes:
   pg-data:

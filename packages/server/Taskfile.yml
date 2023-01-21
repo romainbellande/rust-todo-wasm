@@ -4,8 +4,7 @@ tasks:
   run:dev:
     desc: run server in development mode
     cmds:
-      - task: db:run
-      - cargo-watch -x run
+      - cargo watch -x run
 
   db:run:
     desc: run postgresql db server

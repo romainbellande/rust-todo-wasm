@@ -1,6 +1,7 @@
 use once_cell::sync::Lazy;
 use std::option_env;
 
+#[derive(Default)]
 pub struct Config {
     pub api_url: Option<String>,
 }

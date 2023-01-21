@@ -17,6 +17,7 @@ members = [
   "packages/migration",
   "packages/client",
   "packages/field-names",
+  "packages/shared",
   "packages/validator"
 ]
 

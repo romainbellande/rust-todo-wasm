@@ -9,6 +9,7 @@ edition = "2021"
 # internal packages
 entity = { path = "../entity" }
 migration = { path = "../migration" }
+shared = { path = "../shared" }
 
 # external packages
 async-graphql = { version = "4.0.14", features = ["uuid08"] }

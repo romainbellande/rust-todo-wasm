@@ -1,6 +1,6 @@
 use super::request;
-use crate::Error;
 use graphql_client::GraphQLQuery;
+use shared::errors::AppError;
 use std::fmt::Debug;
 
 #[derive(GraphQLQuery, Clone, Debug)]
@@ -13,7 +13,7 @@ use std::fmt::Debug;
 pub struct LoginQuery;
 
 impl LoginQuery {
-    pub async fn send(variables: LoginPayload) -> Result<login_query::ResponseData, Error> {
+    pub async fn send(variables: LoginPayload) -> Result<login_query::ResponseData, AppError> {
         request::<Self>(variables).await
     }
 }

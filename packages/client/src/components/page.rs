@@ -1,5 +1,5 @@
 use super::{Breadcrumb, PageError, Spinner};
-use crate::Error;
+use shared::errors::AppError;
 use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
@@ -12,7 +12,7 @@ pub struct PageProps {
     pub loading: bool,
 
     #[prop_or(None)]
-    pub error: Option<Error>,
+    pub error: Option<AppError>,
 }
 
 #[function_component(Page)]

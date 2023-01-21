@@ -1,0 +1,25 @@
+hello: Hello World
+messages:
+  hello: Hello, %{name}
+errors:
+        UnprocessableEntity: could not save user
+        DeserializeError: deserialization error
+        RequestError: request error
+        NoErrorExtension: no error extension present in response
+        NoErrorCodeProvided: no error code provided in response
+        UnknownErrorCode: unknown error code
+        ErrorCodeIsNotStr: error code is not a string
+        InternalServerError: internal server error
+        BadRequest: bad request
+        Forbidden: forbideen access
+        Gone: resource gone
+        GenericError: an error occured
+        RequestTimeout: request timeout
+        Unauthorized: your are not authorized to perform this operation
+        NotFound: resource not found
+        UserNotFound: user not found
+        CouldNotSaveUser: an error occured while saving the user
+        WrongCredentials: user or password incorrect
+        MissingCredentials: missing credentials
+        InvalidToken: invalid token
+        TokenCreation: an error occured during token creation

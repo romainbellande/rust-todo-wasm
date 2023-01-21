@@ -1,4 +1,5 @@
-use crate::utils::{pagination::PaginatedResult, Filter, WebError};
+use crate::utils::errors::CommonError;
+use crate::utils::{pagination::PaginatedResult, Filter};
 
 use async_graphql::{Context, Object, Result};
 use entity::todo;
@@ -39,7 +40,7 @@ async fn paginate(
     let data = paginator
         .fetch_page(page)
         .await
-        .map_err(|db_err| WebError::ServerError(db_err.to_string()))?;
+        .map_err(|db_err| CommonError::InternalServerError(db_err.to_string()))?;
 
     Ok(PaginatedResult::new(paginator, page, data).await)
 }

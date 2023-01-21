@@ -1,7 +1,6 @@
 mod command;
 mod config;
 mod db;
-mod errors;
 mod fixtures;
 mod graphql;
 mod modules;
@@ -16,7 +15,7 @@ use db::Database;
 use graphql::{graphiql, graphql_handler, MutationRoot, QueryRoot};
 use http::Method;
 use migration::{Migrator, MigratorTrait};
-use serve_client::serve_client;
+
 use std::fs::File;
 use std::{io::Write, net::SocketAddr};
 use tower_http::cors::{Any, CorsLayer};
@@ -55,7 +54,7 @@ pub async fn start() {
         let mut file = File::create("../client/graphql/schema.graphql")
             .expect("an error occured while writing graphql schema file");
 
-        file.write_all(&schema.sdl().as_bytes())
+        file.write_all(schema.sdl().as_bytes())
             .expect("error while writing graphql schema content");
 
         println!("graphql schema writing succeed");
