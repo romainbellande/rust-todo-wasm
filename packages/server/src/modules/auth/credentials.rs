@@ -1,7 +1,7 @@
 use async_graphql::InputObject;
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize, InputObject)]
+#[derive(Clone, Debug, Deserialize, InputObject)]
 pub struct Credentials {
     pub email: String,
 

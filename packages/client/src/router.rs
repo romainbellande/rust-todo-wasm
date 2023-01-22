@@ -1,9 +1,10 @@
+use crate::components::AuthGuard;
 use crate::pages::{Dashboard, Login};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
 #[derive(Clone, Routable, PartialEq)]
-enum Route {
+pub enum Route {
     #[at("/")]
     Dashboard,
 
@@ -14,10 +15,18 @@ enum Route {
     Login,
 }
 
+fn render_dashboard() -> Html {
+    html! {
+        <AuthGuard>
+            <Dashboard />
+        </AuthGuard>
+    }
+}
+
 fn switch(route: Route) -> Html {
     match route {
-        Route::Dashboard => html! { <Dashboard /> },
-        Route::DashboardSub => html! { <Dashboard /> },
+        Route::Dashboard => render_dashboard(),
+        Route::DashboardSub => render_dashboard(),
         Route::Login => html! { <Login /> },
     }
 }

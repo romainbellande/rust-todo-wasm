@@ -27,6 +27,8 @@ pub struct Config {
     pub admin_email: String,
     pub admin_password: String,
     pub rust_env: RustEnv,
+    pub access_token_duration: u16,
+    pub refresh_token_duration: u16,
 }
 
 impl Config {
@@ -44,6 +46,10 @@ impl Config {
             admin_email: env::var("ADMIN_EMAIL").expect("ADMIN_EMAIL must be set"),
             admin_password: env::var("ADMIN_PASSWORD").expect("ADMIN_PASSWORD must be set"),
             rust_env: RustEnv::new(env::var("RUST_ENV").expect("RUST_ENV must be set")),
+            // access token duration in seconds, 10 minutes by default
+            access_token_duration: env::var("ACCESS_TOKEN_DURATION").unwrap_or_else(|_| "600".to_string()).parse::<u16>().expect("access token duration is invalid"),
+            // refresh token duration in seconds, 1 month by default
+            refresh_token_duration: env::var("REFRESH_TOKEN_DURATION").unwrap_or_else(|_| "2592000".to_string()).parse::<u16>().expect("refresh token duration is invalid"),
         }
     }
 }
