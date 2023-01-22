@@ -3,7 +3,7 @@ use yewdux::prelude::*;
 
 #[derive(Store, Debug, Default, Clone, PartialEq, Eq)]
 pub struct AppStore {
-    pub access_token: String,
+    pub access_token: Option<String>,
 }
 
 pub enum Action {
@@ -15,7 +15,7 @@ impl Reducer<AppStore> for Action {
         let state = Rc::make_mut(&mut store);
 
         match self {
-            Self::SetAccessToken(access_token) => state.access_token = access_token,
+            Self::SetAccessToken(access_token) => state.access_token = Some(access_token),
         };
 
         store

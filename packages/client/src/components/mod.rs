@@ -27,3 +27,6 @@ pub use spinner::Spinner;
 
 mod page_error;
 pub use page_error::PageError;
+
+mod auth_guard;
+pub use auth_guard::AuthGuard;
