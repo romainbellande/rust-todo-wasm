@@ -16,6 +16,12 @@ pub enum AuthError {
 
     #[error("invalid token")]
     InvalidToken,
+
+    #[error("refresh token missing")]
+    MissingRefreshToken,
+
+    #[error("access token missing")]
+    MissingAccessToken
 }
 
 impl AppError for AuthError {
@@ -25,6 +31,8 @@ impl AppError for AuthError {
             Self::InvalidToken => errors::AppError::InvalidToken,
             Self::TokenCreation => errors::AppError::TokenCreation,
             Self::WrongCredentials => errors::AppError::WrongCredentials,
+            Self::MissingRefreshToken => errors::AppError::MissingRefreshToken,
+            Self::MissingAccessToken => errors::AppError::MissingAccessToken,
         };
 
         code.to_string()
@@ -36,6 +44,8 @@ impl AppError for AuthError {
             Self::InvalidToken => StatusCode::BAD_REQUEST,
             Self::MissingCredentials => StatusCode::BAD_REQUEST,
             Self::TokenCreation => StatusCode::INTERNAL_SERVER_ERROR,
+            Self::MissingRefreshToken => StatusCode::FORBIDDEN,
+            Self::MissingAccessToken => StatusCode::FORBIDDEN,
         }
     }
 }

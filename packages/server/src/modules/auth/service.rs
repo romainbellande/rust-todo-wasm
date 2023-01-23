@@ -1,5 +1,5 @@
 use super::{
-    body::AuthBody, claims::Claims, credentials::Credentials, errors::AuthError, keys::KEYS,
+    body::AuthBody, claims::{AccessTokenClaims, RefreshTokenClaims}, credentials::Credentials, errors::AuthError, keys::KEYS,
 };
 use crate::utils::errors::{graphql_error, CommonError};
 use async_graphql::{Error, Result};
@@ -37,16 +37,27 @@ pub async fn authorize(
 }
 
 pub fn create_access_token(user: user::Model) -> Result<String, Error> {
-    let claims = Claims {
+    let claims = AccessTokenClaims {
         sub: user.id.to_string(),
-        company: "ACME".to_owned(),
         // TODO: add roles here
         // Mandatory expiry time as UTC timestamp
-        exp: CONFIG.access_token_duration.into(), // May 2033
+        exp: CONFIG.access_token_duration.into(),
     };
 
     // Create the authorization token
      encode(&Header::default(), &claims, &KEYS.encoding)
         .map_err(|_| graphql_error!(AuthError::TokenCreation))
 
+}
+
+pub fn create_refresh_token(user: &user::Model) -> Result<String, Error> {
+    let exp = usize::try_from(CONFIG.refresh_token_duration).map_err(|_| AuthError::TokenCreation)?;
+    let claims = RefreshTokenClaims {
+        sub: user.id.to_string(),
+        exp,
+        jti: "toto".to_string(), // TODO: must be generated
+    };
+
+     encode(&Header::default(), &claims, &KEYS.encoding)
+        .map_err(|_| graphql_error!(AuthError::TokenCreation))
 }

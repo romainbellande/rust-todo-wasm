@@ -7,5 +7,5 @@ pub mod middleware;
 mod query;
 mod service;
 pub use query::AuthQuery;
-
-pub use claims::Claims;
+pub use claims::{AccessTokenClaims, RefreshTokenClaims};
+pub mod guard;

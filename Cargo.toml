@@ -18,7 +18,8 @@ members = [
   "packages/client",
   "packages/field-names",
   "packages/shared",
-  "packages/validator"
+  "packages/validator",
+  "packages/cli"
 ]
 
 default-members = ["packages/server"]
