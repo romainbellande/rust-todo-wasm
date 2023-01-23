@@ -1,3 +1,5 @@
+use yew_router::prelude::use_navigator;
+use crate::router::Route;
 use crate::components::{Button, ButtonType, Field, FieldDef};
 use crate::graphql::auth::login_query::Credentials;
 use crate::graphql::auth::{LoginPayload, LoginQuery};
@@ -48,6 +50,7 @@ impl FormState {
 #[function_component(Login)]
 pub fn login() -> Html {
     let (_store, dispatch) = use_store::<AppStore>();
+    let navigator = use_navigator().unwrap();
     let form_state = use_state(FormState::new);
     let error = use_state(|| Option::<AppError>::None);
 
@@ -64,6 +67,7 @@ pub fn login() -> Html {
                 Ok(token_success) => {
                     let access_token = token_success.login.access_token;
                     dispatch.apply(Action::SetAccessToken(access_token));
+                    navigator.push(&Route::Dashboard);
                     Ok(())
                 }
                 Err(token_err) => {

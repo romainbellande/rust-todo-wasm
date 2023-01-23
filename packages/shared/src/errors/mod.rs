@@ -28,6 +28,8 @@ create_error_enum!(
         WrongCredentials,
         MissingCredentials,
         InvalidToken,
-        TokenCreation
+        TokenCreation,
+        MissingRefreshToken,
+        MissingAccessToken
     ]
 );

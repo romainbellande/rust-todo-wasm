@@ -12,10 +12,10 @@ migration = { path = "../migration" }
 shared = { path = "../shared" }
 
 # external packages
-async-graphql = { version = "4.0.14", features = ["uuid08"] }
-async-graphql-axum = "4.0.14"
-axum = "0.5.16"
-axum-extra = { version = "0.3.7", features = ["spa"] }
+async-graphql = { version = "5.0.5", features = ["uuid08"] }
+async-graphql-axum = "5.0.5"
+axum = { version = "0.6.2", features = ["headers"]}
+axum-extra = { version = "0.4.2", features = ["spa", "cookie-private"] }
 log = "0.4.17"
 once_cell = "1.15.0"
 sea-orm = { version = "0.9.3", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }

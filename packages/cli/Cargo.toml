@@ -1,0 +1,12 @@
+[package]
+name = "cli"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.6.2", features = ["headers"]}
+axum-extra = { version = "0.4.2", features = ["spa", "cookie-private"] }
+clap = { version = "4.1.1", features = ["derive"] }
+rand = "0.8.5"
