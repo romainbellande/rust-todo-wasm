@@ -36,9 +36,8 @@ pub struct Config {
 impl Config {
     pub fn new() -> Self {
         let cookie_key = env::var("COOKIE_KEY").expect("COOKIE_KEY must be set");
-        println!("cookie key: {}", cookie_key);
         let cookie_key_bytes = cookie_key.as_bytes();
-        println!("cookie_key_bytes len {}", cookie_key_bytes.len());
+
         Self {
             jwt_secret: env::var("JWT_SECRET").expect("JWT_SECRET must be set"),
             salt: env::var("SALT").expect("SALT must be set"),
