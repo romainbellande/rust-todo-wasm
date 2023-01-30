@@ -2,23 +2,25 @@ use crate::utils::errors::WebError;
 
 use super::{AccessTokenClaims, errors::AuthError};
 use axum::{
-    extract::TypedHeader,
     http::Request,
     middleware::Next,
-    response::Response, headers::Authorization,
-    RequestPartsExt
+    response::Response,
 };
+use axum_extra::extract::cookie::CookieJar;
 
 pub async fn auth_bearer_middleware<B: Send>(
     req: Request<B>,
     next: Next<B>,
 ) -> Result<Response, WebError> {
-    let (mut parts, body) = req.into_parts();
-     let TypedHeader(Authorization(bearer)) = parts.extract()
-        .await
-        .map_err(|_| AuthError::MissingAccessToken.into())?;
+    let (parts, body) = req.into_parts();
 
-    let claims = AccessTokenClaims::from_bearer(bearer)?;
+    let cookie = CookieJar::from_headers(&parts.headers);
+
+    let access_token = cookie.get("access_token")
+        .map(|cookie| cookie.value().to_owned())
+        .ok_or(AuthError::MissingAccessToken.into())?;
+
+    let claims = AccessTokenClaims::from_string(access_token)?;
 
             format!("Found claims: {:?}", claims);
 
