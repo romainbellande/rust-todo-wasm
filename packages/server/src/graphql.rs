@@ -1,13 +1,16 @@
+use crate::config::CONFIG;
+use crate::modules::auth::{
+    extractor::{get_access_token_from_headers, get_refresh_token_from_headers},
+    AuthQuery,
+};
+use crate::modules::todo::{TodoMutation, TodoQuery};
 use async_graphql::{http::GraphiQLSource, EmptySubscription, MergedObject, Schema};
 use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::{
+    http::header::HeaderMap,
     response::{Html, IntoResponse},
     Extension,
-    http::header::HeaderMap,
 };
-use crate::config::CONFIG;
-use crate::modules::auth::{AuthQuery, extractor::{get_access_token_from_headers, get_refresh_token_from_headers}};
-use crate::modules::todo::{TodoMutation, TodoQuery};
 
 #[derive(MergedObject, Default)]
 pub struct QueryRoot(TodoQuery, AuthQuery);
@@ -17,7 +20,11 @@ pub struct MutationRoot(TodoMutation);
 
 pub type AppSchema = Schema<QueryRoot, MutationRoot, EmptySubscription>;
 
-pub async fn graphql_handler(Extension(schema): Extension<AppSchema>, headers: HeaderMap, req: GraphQLRequest) -> GraphQLResponse {
+pub async fn graphql_handler(
+    Extension(schema): Extension<AppSchema>,
+    headers: HeaderMap,
+    req: GraphQLRequest,
+) -> GraphQLResponse {
     let mut req = req.into_inner();
 
     if let Some(access_token) = get_access_token_from_headers(&headers) {

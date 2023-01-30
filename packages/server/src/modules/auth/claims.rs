@@ -1,12 +1,10 @@
 use super::{errors::AuthError, keys::KEYS};
 use crate::utils::errors::WebError;
-use axum::{
-    headers::authorization::Bearer,
-};
+
+use axum::headers::authorization::Bearer;
+
 use jsonwebtoken::{decode, Validation};
 use serde::{Deserialize, Serialize};
-use axum_extra::extract::{PrivateCookieJar, cookie};
-use crate::CONFIG;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct AccessTokenClaims {
@@ -20,8 +18,8 @@ impl AccessTokenClaims {
     }
 
     pub fn from_string(value: String) -> Result<Self, WebError> {
-        let token_data = decode::<Self>(&value, &KEYS.decoding, &Validation::default())
-            .map_err(|err| {
+        let token_data =
+            decode::<Self>(&value, &KEYS.decoding, &Validation::default()).map_err(|err| {
                 println!("{:?}", err);
                 AuthError::InvalidToken.into()
             })?;
@@ -29,7 +27,6 @@ impl AccessTokenClaims {
         Ok(token_data.claims)
     }
 }
-
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct RefreshTokenClaims {
@@ -42,8 +39,8 @@ pub struct RefreshTokenClaims {
 
 impl RefreshTokenClaims {
     pub fn from_string(value: String) -> Result<Self, WebError> {
-        let token_data = decode::<Self>(&value, &KEYS.decoding, &Validation::default())
-            .map_err(|err| {
+        let token_data =
+            decode::<Self>(&value, &KEYS.decoding, &Validation::default()).map_err(|err| {
                 println!("{:?}", err);
                 AuthError::InvalidToken.into()
             })?;

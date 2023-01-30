@@ -1,6 +1,6 @@
+use crate::modules::auth::guard::AuthGuard;
 use crate::utils::errors::CommonError;
 use crate::utils::{pagination::PaginatedResult, Filter};
-use crate::modules::auth::guard::AuthGuard;
 
 use async_graphql::{Context, Object, Result};
 use entity::todo;

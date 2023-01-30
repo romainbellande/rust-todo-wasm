@@ -1,10 +1,10 @@
 use crate::CONFIG;
+use gloo::net::http::Request;
 use graphql_client::{GraphQLQuery, Response};
+
 use shared::errors::AppError;
 use std::fmt::Debug;
 use std::str::FromStr;
-use gloo::net::http::Request;
-use serde_wasm_bindgen;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, AppError>
 where
@@ -23,7 +23,10 @@ where
 
     // let js_body = serde_wasm_bindgen::to_value(&body).unwrap();
 
-    let request = Request::post(&url).credentials(web_sys::RequestCredentials::Include).json(&body).unwrap();
+    let request = Request::post(&url)
+        .credentials(web_sys::RequestCredentials::Include)
+        .json(&body)
+        .unwrap();
 
     let response = request.send().await;
 

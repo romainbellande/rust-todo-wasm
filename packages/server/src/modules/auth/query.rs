@@ -1,8 +1,8 @@
 use super::{body::AuthBody, credentials::Credentials, service};
-use async_graphql::{Context, Object, Result};
-use sea_orm::DatabaseConnection;
-use cookie::{Cookie, SameSite, time::Duration};
 use crate::CONFIG;
+use async_graphql::{Context, Object, Result};
+use cookie::{time::Duration, Cookie, SameSite};
+use sea_orm::DatabaseConnection;
 
 fn create_access_token_cookie<'a>(access_token: &'a String) -> Cookie {
     Cookie::build("access_token", access_token.clone())
@@ -24,7 +24,6 @@ impl AuthQuery {
         let response = service::authorize(conn, credentials).await;
 
         if let Ok(response) = response.clone() {
-
             let access_token_value = response.access_token;
             let access_token_cookie = create_access_token_cookie(&access_token_value);
             ctx.insert_http_header("Set-Cookie", access_token_cookie.to_string());

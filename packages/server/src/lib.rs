@@ -13,7 +13,7 @@ use axum_extra::routing::SpaRouter;
 use config::{RustEnv, CONFIG};
 use db::Database;
 use graphql::{graphiql, graphql_handler, MutationRoot, QueryRoot};
-use http::{Method, HeaderValue, header};
+use http::{header, HeaderValue, Method};
 use migration::{Migrator, MigratorTrait};
 
 use std::fs::File;
@@ -29,7 +29,11 @@ pub async fn start() {
         // allow `GET` and `POST` when accessing the resource
         .allow_methods(vec![Method::GET, Method::POST])
         // allow requests from any origin
-        .allow_origin("http://dev.localhost.com:8080".parse::<HeaderValue>().unwrap());
+        .allow_origin(
+            "http://dev.localhost.com:8080"
+                .parse::<HeaderValue>()
+                .unwrap(),
+        );
 
     Migrator::up(&conn, None)
         .await
