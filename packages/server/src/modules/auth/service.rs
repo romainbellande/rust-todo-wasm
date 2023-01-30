@@ -6,6 +6,7 @@ use async_graphql::{Error, Result};
 use entity::user;
 use jsonwebtoken::{encode, Header};
 use sea_orm::DatabaseConnection;
+use chrono::Utc;
 use crate::CONFIG;
 
 pub async fn authorize(
@@ -41,7 +42,7 @@ pub fn create_access_token(user: user::Model) -> Result<String, Error> {
         sub: user.id.to_string(),
         // TODO: add roles here
         // Mandatory expiry time as UTC timestamp
-        exp: CONFIG.access_token_duration.into(),
+        exp: Utc::now().timestamp() + i64::from(CONFIG.access_token_duration)
     };
 
     // Create the authorization token
@@ -51,7 +52,7 @@ pub fn create_access_token(user: user::Model) -> Result<String, Error> {
 }
 
 pub fn create_refresh_token(user: &user::Model) -> Result<String, Error> {
-    let exp = usize::try_from(CONFIG.refresh_token_duration).map_err(|_| AuthError::TokenCreation)?;
+    let exp = i64::try_from(CONFIG.refresh_token_duration).map_err(|_| AuthError::TokenCreation)?;
     let claims = RefreshTokenClaims {
         sub: user.id.to_string(),
         exp,

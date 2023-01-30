@@ -3,14 +3,14 @@ use graphql_client::{GraphQLQuery, Response};
 use shared::errors::AppError;
 use std::fmt::Debug;
 use std::str::FromStr;
+use gloo::net::http::Request;
+use serde_wasm_bindgen;
 
 pub async fn request<Q>(variables: Q::Variables) -> Result<Q::ResponseData, AppError>
 where
     Q: GraphQLQuery + Clone + Debug,
     <Q as GraphQLQuery>::ResponseData: Clone + Debug,
 {
-    let client = reqwest::Client::new();
-
     let base_url = if let Some(api_url) = CONFIG.api_url.clone() {
         api_url
     } else {
@@ -21,17 +21,16 @@ where
 
     let body = Q::build_query(variables);
 
-    let request_builder = client
-        .post(url)
-        .header("Content-Type", "application/json")
-        .json(&body);
+    // let js_body = serde_wasm_bindgen::to_value(&body).unwrap();
 
-    let response = request_builder.send().await;
+    let request = Request::post(&url).credentials(web_sys::RequestCredentials::Include).json(&body).unwrap();
+
+    let response = request.send().await;
 
     let data = response.map_err(|_| AppError::RequestError)?;
 
-    if !data.status().is_success() {
-        return match data.status().as_u16() {
+    if !data.ok() {
+        return match data.status() {
             401 => Err(AppError::Unauthorized),
             403 => Err(AppError::Forbidden),
             404 => Err(AppError::NotFound),

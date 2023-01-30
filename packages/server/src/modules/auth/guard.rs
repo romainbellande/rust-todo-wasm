@@ -1,8 +1,8 @@
 use axum::async_trait;
 use async_graphql::{Guard, Context, Result, Error, ErrorExtensions};
-use crate::graphql;
 use crate::utils::errors::WebError;
-use super::errors::AuthError;
+use super::{errors::AuthError, AccessTokenClaims};
+use crate::modules::auth::extractor::AccessToken;
 
 pub struct AuthGuard;
 
@@ -14,14 +14,14 @@ impl AuthGuard {
 
 #[async_trait]
 impl Guard for AuthGuard {
-    async fn check(&self, ctx: &Context<'_>) -> Result<()> {
-      let access_token = ctx.data_opt::<graphql::AccessToken>();
-
-        if access_token.is_some() {
-            Ok(())
-        } else {
+    async fn check(&self, ctx: &Context<'_>) -> Result<(), Error> {
+        let access_token = ctx.data_opt::<AccessToken>().ok_or({
             let web_error: WebError = AuthError::MissingAccessToken.into();
-            Err(web_error.extend())
-        }
+            web_error.extend()
+        })?;
+
+        AccessTokenClaims::from_string(access_token.clone().0.clone()).map_err(|err| err.extend())?;
+
+        Ok(())
     }
 }

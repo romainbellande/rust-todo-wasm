@@ -1,7 +1,7 @@
 use async_graphql::SimpleObject;
 use serde::Serialize;
 
-#[derive(Debug, Serialize, SimpleObject)]
+#[derive(Clone, Debug, Serialize, SimpleObject)]
 pub struct AuthBody {
     pub access_token: String,
 

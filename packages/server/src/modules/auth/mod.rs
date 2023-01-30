@@ -9,3 +9,4 @@ mod service;
 pub use query::AuthQuery;
 pub use claims::{AccessTokenClaims, RefreshTokenClaims};
 pub mod guard;
+pub mod extractor;

@@ -1,6 +1,7 @@
 use once_cell::sync::Lazy;
 use std::env;
 use axum_extra::extract::cookie;
+use dotenv::dotenv;
 
 #[derive(Clone, Eq, PartialEq)]
 pub enum RustEnv {
@@ -35,6 +36,7 @@ pub struct Config {
 
 impl Config {
     pub fn new() -> Self {
+        dotenv().ok();
         let cookie_key = env::var("COOKIE_KEY").expect("COOKIE_KEY must be set");
         let cookie_key_bytes = cookie_key.as_bytes();
 
@@ -57,6 +59,14 @@ impl Config {
             refresh_token_duration: env::var("REFRESH_TOKEN_DURATION").unwrap_or_else(|_| "2592000".to_string()).parse::<u32>().expect("refresh token duration is invalid"),
             cookie_key: cookie::Key::from(cookie_key_bytes),
         }
+    }
+
+    pub fn is_dev(&self) -> bool {
+        self.rust_env == RustEnv::Development
+    }
+
+    pub fn is_production(&self) -> bool {
+        self.rust_env == RustEnv::Production
     }
 }
 
