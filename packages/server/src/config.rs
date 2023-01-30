@@ -1,6 +1,7 @@
+use axum_extra::extract::cookie;
+use dotenv::dotenv;
 use once_cell::sync::Lazy;
 use std::env;
-use axum_extra::extract::cookie;
 
 #[derive(Clone, Eq, PartialEq)]
 pub enum RustEnv {
@@ -35,6 +36,7 @@ pub struct Config {
 
 impl Config {
     pub fn new() -> Self {
+        dotenv().ok();
         let cookie_key = env::var("COOKIE_KEY").expect("COOKIE_KEY must be set");
         let cookie_key_bytes = cookie_key.as_bytes();
 
@@ -52,11 +54,25 @@ impl Config {
             admin_password: env::var("ADMIN_PASSWORD").expect("ADMIN_PASSWORD must be set"),
             rust_env: RustEnv::new(env::var("RUST_ENV").expect("RUST_ENV must be set")),
             // access token duration in seconds, 10 minutes by default
-            access_token_duration: env::var("ACCESS_TOKEN_DURATION").unwrap_or_else(|_| "600".to_string()).parse::<u16>().expect("access token duration is invalid"),
+            access_token_duration: env::var("ACCESS_TOKEN_DURATION")
+                .unwrap_or_else(|_| "600".to_string())
+                .parse::<u16>()
+                .expect("access token duration is invalid"),
             // refresh token duration in seconds, 1 month by default
-            refresh_token_duration: env::var("REFRESH_TOKEN_DURATION").unwrap_or_else(|_| "2592000".to_string()).parse::<u32>().expect("refresh token duration is invalid"),
+            refresh_token_duration: env::var("REFRESH_TOKEN_DURATION")
+                .unwrap_or_else(|_| "2592000".to_string())
+                .parse::<u32>()
+                .expect("refresh token duration is invalid"),
             cookie_key: cookie::Key::from(cookie_key_bytes),
         }
+    }
+
+    pub fn is_dev(&self) -> bool {
+        self.rust_env == RustEnv::Development
+    }
+
+    pub fn is_production(&self) -> bool {
+        self.rust_env == RustEnv::Production
     }
 }
 

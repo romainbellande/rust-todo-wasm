@@ -6,6 +6,7 @@ mod keys;
 pub mod middleware;
 mod query;
 mod service;
-pub use query::AuthQuery;
 pub use claims::{AccessTokenClaims, RefreshTokenClaims};
+pub use query::AuthQuery;
+pub mod extractor;
 pub mod guard;

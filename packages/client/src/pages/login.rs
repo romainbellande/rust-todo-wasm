@@ -1,13 +1,13 @@
-use yew_router::prelude::use_navigator;
-use crate::router::Route;
 use crate::components::{Button, ButtonType, Field, FieldDef};
 use crate::graphql::auth::login_query::Credentials;
 use crate::graphql::auth::{LoginPayload, LoginQuery};
+use crate::router::Route;
 use crate::store::{Action, AppStore};
 use crate::utils::macros::oninput;
 use rust_i18n::t;
 use shared::errors::AppError;
 use validator::{StringValidator, Validator};
+use yew_router::prelude::use_navigator;
 
 use web_sys::HtmlInputElement;
 use yew::prelude::*;

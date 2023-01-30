@@ -21,7 +21,7 @@ pub enum AuthError {
     MissingRefreshToken,
 
     #[error("access token missing")]
-    MissingAccessToken
+    MissingAccessToken,
 }
 
 impl AppError for AuthError {

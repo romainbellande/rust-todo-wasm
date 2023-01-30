@@ -1,8 +1,8 @@
+use crate::router::Route;
+use crate::store::{AppStore};
 use yew::prelude::*;
 use yew_router::prelude::use_navigator;
 use yewdux::prelude::use_store;
-use crate::store::{Action, AppStore};
-use crate::router::Route;
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
@@ -12,7 +12,7 @@ pub struct Props {
 
 #[function_component(AuthGuard)]
 pub fn auth_guard(props: &Props) -> Html {
-    let (state, dispatch) = use_store::<AppStore>();
+    let (state, _dispatch) = use_store::<AppStore>();
     let navigator = use_navigator().unwrap();
 
     if state.access_token.is_none() {
@@ -27,4 +27,3 @@ pub fn auth_guard(props: &Props) -> Html {
         }
     }
 }
-
